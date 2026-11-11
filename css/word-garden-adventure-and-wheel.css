@@ -141,7 +141,8 @@
 /* Small phones (about 320 x 568 up to 360 x 640): the wheel, Find word and Clear / Shuffle must be reachable without scrolling.
    Only vertical space is traded: the scene strip, titles and reserved feedback line shrink, and the exercise footer no longer
    reserves the tall gap meant for a sticky answer sheet. Letter faces, tap targets (>= 44px) and the wheel's behaviour are unchanged. */
-@media (max-width: 480px) and (max-height: 700px) {
+/* Compact layout for any short viewport: small phones, landscape phones and short laptop windows. */
+@media (max-height: 720px) {
   [data-garden-exercise] .ex-top { margin-bottom: var(--s1); }
   [data-garden-exercise] .ex-heading + .kicker { margin: 0 0 var(--s1); }
   [data-garden-exercise] .ex-card { margin-bottom: 4px; padding: 10px; }
@@ -155,13 +156,21 @@
   [data-adventure] .wg-board { width: min(100%, 178px); }
   [data-adventure] .wg-letter { width: 44px; height: 44px; }
   [data-adventure] .wg-current { min-height: 1.7em; }
-  /* One row on short phones (Find word stays rightmost, under the thumb) so the footer Hint fits without scrolling. */
-  [data-adventure] .wg-actions { gap: 6px; grid-template-columns: auto auto 1fr; }
-  [data-adventure] .wg-actions [data-submit] { grid-column: 3; }
-  [data-adventure] .wg-label-extra { display: none; } /* "Shuffle letters" reads as "Shuffle"; its aria-label keeps the full name */
-  [data-garden-exercise] .ex-foot[data-state="idle"] #hint { min-height: 44px; }
+  [data-adventure] .wg-actions { gap: 6px; }
   [data-adventure] .wg-actions .btn { min-height: 44px; padding: 8px 12px; font-size: .9rem; white-space: nowrap; }
   [data-garden-exercise] .ex-foot[data-state="idle"] { padding-block: 6px; }
+}
+/* Short screens, phone or laptop: the actions share one row (Find word rightmost, under the thumb or cursor)
+   so the footer Hint is visible without scrolling. Tablets in portrait keep the two-row layout. */
+@media (max-height: 720px), (min-width: 768px) and (max-height: 860px) {
+  [data-adventure] .wg-actions { grid-template-columns: auto auto 1fr; }
+  [data-adventure] .wg-actions [data-submit] { grid-column: 3; }
+  [data-adventure] .wg-label-extra { display: none; } /* "Shuffle letters" reads as "Shuffle"; its aria-label keeps the full name */
+}
+@media (min-width: 768px) and (max-height: 860px) {
+  .wg-scene { height: 64px; }
+  [data-garden-exercise] .ex-card { margin-bottom: var(--s2); padding-block: 14px; }
+  [data-adventure] .wg-current { min-height: 1.7em; }
 }
 /* The very shortest screens (iPhone SE class): one more notch so a two-line clue (level 3) still leaves the action row on screen. */
 @media (max-width: 480px) and (max-height: 600px) {
