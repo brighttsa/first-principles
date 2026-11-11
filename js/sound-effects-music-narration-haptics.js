@@ -1,4 +1,4 @@
-// Audio identity built from Kenney CC0 sounds (UI Audio, Interface Sounds, Steel-drum jingles, Music Loops).
+// Audio identity built from Kenney CC0 sounds (Interface Sounds, Steel-drum jingles) plus the owner's soundtrack.
 // Music, effects, narration and haptics are independently switchable.
 import { state } from './saved-progress-and-settings-state.js';
 
@@ -33,7 +33,8 @@ export function buzz(ms = 12) {
 
 let music;
 export function syncMusic() {
-  if (!music) { music = new Audio('assets/audio/music-farm-frolics.ogg'); music.loop = true; music.volume = 0.18; }
+  // Soundtrack: "Family Adventure", supplied by the project owner (made with Suno). Loops quietly under play.
+  if (!music) { music = new Audio('assets/audio/music-family-adventure.mp3'); music.loop = true; music.volume = 0.18; }
   if (state.settings.music) music.play().catch(() => {}); else music.pause();
 }
 

@@ -12,7 +12,11 @@ Animal Pack Remastered (kenney-animal-pack-remastered-LICENSE)  assets/animals/*
 UI Audio (kenney-ui-audio-LICENSE)          not currently used (files removed)
 Interface Sounds (kenney-interface-sounds-LICENSE)  assets/audio/ select, tick, drop, confirmation, error, open, close, pluck, toggle, question, scroll, back
 Music Jingles (kenney-music-jingles-LICENSE) assets/audio/jingle-*.ogg (steel drum)
-Music Loops (kenney-music-loops-LICENSE)    assets/audio/music-farm-frolics.ogg
+Music Loops (kenney-music-loops-LICENSE)    not currently used (music-farm-frolics.ogg replaced by the soundtrack below)
+
+Soundtrack: assets/audio/music-family-adventure.mp3 ("Family Adventure"), supplied by the project owner and made with
+Suno (usesuno.com). Re-encoded to 128 kbps with cover art and metadata removed. Check Suno's terms for the plan the track
+was made on before a commercial release.
 
 Original artwork (scenes, Sprig/Drizzle/Bloom, glyphs, bookplate) is made for this game and is not from Kenney.
 
