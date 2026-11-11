@@ -60,7 +60,6 @@
 @media (max-width: 380px) {
   [data-adventure] .wg-board { width: min(100%, 202px); }
   .wg-scene { height: 64px; }
-  [data-garden-exercise] .ex-heading { font-size: var(--fs-m); }
   [data-garden-exercise] .ex-top { margin-bottom: var(--s2); }
 }
 

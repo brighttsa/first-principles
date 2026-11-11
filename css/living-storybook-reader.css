@@ -2,7 +2,8 @@
    The stage art sits behind; the card holds narration, the verse and the beat's action. Motion is gated by reduced motion. */
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
-.lsb { display: flex; flex-direction: column; min-height: calc(100dvh - var(--nav-h, 66px)); background: #0c1430; }
+/* The tab bar is hidden on this screen, so the reader fills the whole height (subtracting it left an empty band). */
+.lsb { display: flex; flex-direction: column; min-height: 100dvh; background: #0c1430; }
 body[data-screen="story"] #nav { display: none; }
 
 .lsb-stage { position: relative; flex: 1 1 auto; min-height: 42dvh; overflow: hidden; cursor: pointer; }
@@ -47,6 +48,23 @@ body[data-screen="story"] #nav { display: none; }
 @media (min-width: 700px) {
   .lsb-card { max-width: 640px; margin-inline: auto; width: calc(100% - 2 * var(--s4)); border-radius: 28px; margin-bottom: var(--s4); }
   .lsb-stage { min-height: 46dvh; }
+}
+/* Short portrait phones: the painting yields some height so verse scenes keep Next on screen. */
+@media (max-height: 640px) and (orientation: portrait) {
+  .lsb-stage { min-height: 28dvh; }
+  .lsb-card { padding-top: var(--s4); }
+  .lsb-text p { font-size: var(--fs-b); }
+}
+/* Landscape phones: painting on the left, story card on the right (scrolling on its own if a verse is long). */
+@media (orientation: landscape) and (max-height: 500px) {
+  .lsb { flex-direction: row; height: 100dvh; }
+  .lsb-stage { flex: 1 1 50%; min-height: 0; }
+  .lsb-card {
+    flex: 0 0 min(50%, 440px); width: auto; max-width: none; margin: 0; border-radius: 0; overflow-y: auto;
+    padding: var(--s3) var(--s4); box-shadow: -10px 0 24px rgba(8,16,44,.35);
+  }
+  .lsb-sprig { top: 6px; right: 10px; width: 40px; }
+  .lsb-text p, .lsb-word { font-size: var(--fs-b); }
 }
 @keyframes lsb-pop { 0% { transform: translateX(-50%) scale(.6); opacity: 0; } 60% { transform: translateX(-50%) scale(1.06); } 100% { transform: translateX(-50%) scale(1); opacity: 1; } }
 @keyframes lsb-rise { from { transform: translateY(16px); opacity: 0; } to { transform: none; opacity: 1; } }

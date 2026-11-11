@@ -130,8 +130,11 @@
 .wh-choices { display: grid; gap: 9px; }
 .wh-choice { min-height: 50px; padding: 12px 15px; border: 2px solid var(--paper-edge); border-radius: 14px; background: #fff; color: var(--navy); font: 700 var(--fs-b)/1.35 var(--font-sans); text-align: start; }
 .wh-choice.correct { border-color: var(--state-success-edge); background: var(--state-success-bg); color: var(--state-success-text); }
-@media (min-width: 700px) and (orientation: landscape) {
-  .wh-scene { aspect-ratio: 2752 / 1536; }
+/* Portrait: the tall painting is limited by the screen height (never narrower than 240px) so the hunt fits without
+   long scrolling; hotspots are positioned in percent, so they follow the scaled painting. */
+.wh-scene { width: clamp(240px, calc((100dvh - 270px) * 1536 / 2752), 100%); margin-inline: auto; }
+@media (min-width: 700px) and (orientation: landscape), (orientation: landscape) and (max-height: 500px) {
+  .wh-scene { aspect-ratio: 2752 / 1536; width: min(100%, calc((100dvh - 24px) * 2752 / 1536)); }
   .wh-hotspot { left: var(--wide-x); top: var(--wide-y); width: max(48px, var(--wide-w)); height: max(48px, var(--wide-h)); }
 }
 @media (min-width: 900px) and (max-width: 1199px) {

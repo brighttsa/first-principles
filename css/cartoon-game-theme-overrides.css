@@ -243,6 +243,13 @@ img.mascot-art { display: block; }
 .level .big { display: grid; place-items: center; flex: 0 0 var(--target); min-block-size: var(--target); border-radius: var(--r-sm); background: var(--paper-shade); color: var(--lagoon-deep); }
 .level .big .kic { width: 24px; height: 24px; }
 .ex-heading { font-size: var(--fs-l); }
+/* Phones: one size down so step titles like "Scripture Completion · 2 of 8" stay on one line. */
+@media (max-width: 480px) { .ex-heading { font-size: var(--fs-m); } }
+@media (max-width: 380px) {
+  /* Slimmer side padding gives grids (word search letters) and tiles more of the narrow screen. */
+  .ex-card { padding-inline: 12px; }
+  .ws { gap: 2px; }
+}
 .ex-card { margin-bottom: var(--s5); }
 .ex-foot[data-state] { position: static; max-height: none; overflow: visible; flex-wrap: wrap; }
 .ex-foot[data-state="bad"] { animation: none; }

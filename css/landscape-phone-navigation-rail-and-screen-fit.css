@@ -12,9 +12,19 @@
   }
   #nav .nav-i { flex: none; min-height: 52px; padding: 4px 2px; font-size: .72rem; line-height: 1.1; }
 
+  /* Lessons use the screen's width (one lane, study tools below) instead of shrink-wrapping to a narrow column,
+     so puzzles lay out wider and need less vertical scrolling. */
+  .lesson:has(.ex) { grid-template-columns: minmax(0, 1fr); width: 100%; max-width: 780px; margin-inline: auto; padding-top: 4px; }
+
   /* Map: the painting fits the screen height (its 1360:781 shape), centred; the world tabs and card scroll above it. */
   .mapscreen .map-layout { padding: var(--s2) var(--s3) var(--s4); }
   .mapscreen .map-wrap { width: min(100%, calc((100dvh - 16px) * 1360 / 781)); margin-inline: auto; }
+}
+
+/* Word search on any short landscape screen: the whole grid fits the screen height, because a word is chosen by
+   tapping its first and last letters and both must be visible at once. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .ws { max-width: min(400px, calc(100dvh - 24px)); }
 }
 
 /* Welcome on any short landscape screen: a smaller Sprig and title so the start button shows without scrolling. */
