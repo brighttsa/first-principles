@@ -1,0 +1,55 @@
+/* Word Garden on landscape phones (short and wide). Stacked, the puzzle needs ~590px of height, so the wheel moves
+   to the right and the clue, scene, word slots and buttons sit to its left. The whole board then fits above the
+   footer Hint on screens about 320px tall. Applies only while the wheel is in play; the Scripture step that
+   follows keeps the normal single-column reading layout. Every placement below is scoped to the in-play state,
+   because a named grid-area on a plain grid would create stray implicit columns. */
+@media (orientation: landscape) and (max-height: 500px) {
+  /* Use the screen's width: one lane (study tools follow below), not the narrow shrink-wrapped column. */
+  .lesson:has([data-garden-exercise]) {
+    grid-template-columns: minmax(0, 1fr); width: 100%; max-width: 780px; margin-inline: auto;
+    padding: 4px var(--s3) var(--s4);
+  }
+  [data-garden-exercise] .ex-top { margin-bottom: 4px; }
+  /* The level label stays for screen readers; the card's own title already names the level on screen. */
+  [data-garden-exercise] .ex-heading {
+    position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+  }
+  [data-garden-exercise] .ex-card { padding: 8px 12px; }
+
+  .word-garden:has(> .wg-play:not([hidden])) {
+    max-width: none; align-items: center; column-gap: 16px; row-gap: 6px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    /* The title and clue get the full left width (fewer wrapped lines); the scene sits beside the word slots and
+       the bonus line, which together are about the scene's height, so it costs no extra row. */
+    grid-template-areas:
+      "head    head    board"
+      "scene   targets board"
+      "scene   bonus   board"
+      "current current board"
+      "actions actions board";
+    & > .wg-play { display: contents; }
+    & > .wg-heading { grid-area: head; text-align: start; }
+    & > .wg-scene { grid-area: scene; }
+    & > .wg-discovery { grid-area: clue; }
+    & .wg-targets { grid-area: targets; }
+    & .wg-bonus-status { grid-area: bonus; }
+    & .wg-board { grid-area: board; width: 172px; align-self: center; }
+    & .wg-current { grid-area: current; }
+    & .wg-actions { grid-area: actions; }
+  }
+  /* Second rack of the waterfall level: the collapsed verse clue shares a row with the feedback line. */
+  .word-garden:has(> .wg-play:not([hidden])):has(> .wg-discovery:not([hidden])) {
+    grid-template-areas:
+      "head    head    board"
+      "scene   targets board"
+      "scene   bonus   board"
+      "clue    current board"
+      "actions actions board";
+    & .wg-evidence-clue summary { font-size: var(--fs-s); padding-block: 6px; }
+  }
+}
+/* Landscape with the browser's bars showing (~320px tall): a slightly smaller wheel and a slimmer Hint bar. */
+@media (orientation: landscape) and (max-height: 340px) {
+  .word-garden:has(> .wg-play:not([hidden])) .wg-board { width: 164px; }
+  [data-garden-exercise] .ex-foot[data-state="idle"]:has(.ex-msg:empty) { padding-block: 4px; }
+}
