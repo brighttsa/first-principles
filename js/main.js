@@ -12,6 +12,7 @@ import { renderLibrary } from './screen-scripture-library-and-spaced-review.js';
 import { renderGarden } from './screen-growth-garden-and-reward-gallery.js';
 import { renderSettings } from './screen-settings-accessibility-and-about.js';
 import { renderReview } from './screen-review-session-of-due-ideas.js';
+import { renderStorybook } from './screen-living-storybook-reader.js';
 import { syncMusic, stopSpeaking } from './sound-effects-music-narration-haptics.js';
 import { $, toast } from './core-utilities-and-dom-helpers.js';
 import { activeWorld, lessonDoneKey, reviewDoneKey, completeDoneKey } from './worlds-registry-active-world-and-progress-keys.js';
@@ -21,6 +22,7 @@ const ROUTES = {
   welcome: renderWelcome, map: renderMap, intro: renderIntro, lesson: renderLesson,
   quiz: renderQuiz, complete: renderComplete, challenge: renderChapterChallenge, library: renderLibrary, garden: renderGarden, settings: renderSettings,
   daily: renderDaily, review: renderReview, progress: renderProgress, achievements: renderProgress,
+  story: renderStorybook,
 };
 let cleanup, routeNotice = '';
 let hasRenderedRoute = false;
