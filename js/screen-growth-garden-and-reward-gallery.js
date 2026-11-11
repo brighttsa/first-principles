@@ -6,6 +6,7 @@ import { topbar } from './ui-navigation-topbar-sheet-and-confetti.js';
 import { esc, announce } from './core-utilities-and-dom-helpers.js';
 import { gardenPlantStages } from './progress-stats-achievements-and-daily-word-logic.js';
 import { mapStates } from './screen-adventure-map-for-active-world.js';
+import { treasuryPages } from './word-treasury-collection-of-word-garden-finds.js';
 
 const STAGES = ['Seed planted', 'Sprouting', 'In bloom'];
 const VISITORS = [
@@ -66,6 +67,7 @@ export function renderGarden(root, _params, go) {
   const visitors = [bloomed >= 1, bloomed >= 2, bloomed >= 3, quiz, earned, reviewed];
   const next = markers.indexOf('cur');
   const defaultPlot = next < 0 ? plants.length - 1 : next;
+  const treasury = treasuryPages();
   const labels = [...world.lessons.map((_, index) => 'Lesson ' + (index + 1)), 'Chapter review', `World ${world.id} reward`];
 
   root.innerHTML = `<div class="screen garden-screen">${topbar('<h1 class="garden-title">Growth Garden</h1>', { back: true })}<div class="page">
@@ -75,6 +77,8 @@ export function renderGarden(root, _params, go) {
       `<button type="button" class="garden-plot-button" data-plot="${index}" aria-pressed="${index === defaultPlot}" aria-controls="garden-plot-detail">
         <span>${labels[index]}</span><span class="garden-plot-stage" data-stage="${stage}">${STAGES[stage]}</span></button>`).join('')}</div>
     <section id="garden-plot-detail" class="garden-plot-detail" aria-label="Selected plot">${plotPanel(plotDetails(defaultPlot, plants[defaultPlot], markers, world))}</section></div></div>
+    <section class="card garden-treasury-link" aria-label="Word Treasury"><p><b>Word Treasury</b><br>${treasury.found} of ${treasury.total} Word Garden words kept beside their verses.</p>
+      <a class="garden-action" href="#/treasury">Open Word Treasury</a></section>
     <p class="muted garden-note">Your garden celebrates what you’ve learned. Each plant grows as you work through a teaching.</p>
     ${world.id === 1 ? `<h2>Garden visitors</h2>
     <ul class="garden-visitors">${VISITORS.map(([asset, name, requirement], index) => `<li class="garden-visitor" data-earned="${visitors[index]}">

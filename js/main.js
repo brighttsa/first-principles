@@ -10,6 +10,7 @@ import { renderQuiz, renderComplete } from './screen-quiz-and-chapter-completion
 import { renderChapterChallenge } from './screen-world-1-optional-chapter-challenge.js';
 import { renderLibrary } from './screen-scripture-library-and-spaced-review.js';
 import { renderGarden } from './screen-growth-garden-and-reward-gallery.js';
+import { renderTreasury } from './screen-word-treasury-collection-by-verse.js';
 import { renderSettings } from './screen-settings-accessibility-and-about.js';
 import { renderReview } from './screen-review-session-of-due-ideas.js';
 import { renderStorybook } from './screen-living-storybook-reader.js';
@@ -20,7 +21,7 @@ import { activeWorld, lessonDoneKey, reviewDoneKey, completeDoneKey } from './wo
 const go = (r) => { location.hash = '#/' + r; };
 const ROUTES = {
   welcome: renderWelcome, map: renderMap, intro: renderIntro, lesson: renderLesson,
-  quiz: renderQuiz, complete: renderComplete, challenge: renderChapterChallenge, library: renderLibrary, garden: renderGarden, settings: renderSettings,
+  quiz: renderQuiz, complete: renderComplete, challenge: renderChapterChallenge, library: renderLibrary, garden: renderGarden, treasury: renderTreasury, settings: renderSettings,
   daily: renderDaily, review: renderReview, progress: renderProgress, achievements: renderProgress,
   story: renderStorybook,
 };
@@ -59,7 +60,7 @@ function route() {
   previousNotice.classList.remove('show'); previousNotice.textContent = '';
   document.body.dataset.screen = key;
   document.body.dataset.world = activeWorld().id; // lets the painted backdrop and per-world styles follow the active world
-  renderNav(['map', 'intro', 'lesson', 'quiz', 'complete', 'challenge'].includes(key) ? 'map' : key === 'garden' ? 'progress' : key === 'review' ? 'daily' : key, go);
+  renderNav(['map', 'intro', 'lesson', 'quiz', 'complete', 'challenge'].includes(key) ? 'map' : ['garden', 'treasury'].includes(key) ? 'progress' : key === 'review' ? 'daily' : key, go);
   cleanup = ROUTES[key](root, { n }, go);
   const heading = root.querySelector('h1, [role="heading"][aria-level="1"]');
   if (hasRenderedRoute) {

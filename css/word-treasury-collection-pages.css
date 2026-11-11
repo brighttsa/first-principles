@@ -1,0 +1,46 @@
+/* Word Treasury: a summary meter, then one page per Word Garden level. Found words are solid chips labelled by kind;
+   missing words are dashed outlines showing their length, so a page reads as "fill the gaps". Kind is always spelled
+   out in text, never colour alone. */
+.wt-summary { display: grid; gap: 8px; }
+.wt-summary-count { margin: 0; color: var(--navy); font: 700 1.125rem/1.2 var(--font-display); }
+.wt-summary-count b { font-size: 1.5rem; }
+.wt-summary .muted { margin: 0; font-size: var(--fs-s); }
+.wt-meter { height: 12px; overflow: hidden; border-radius: 999px; background: #E3EEDF; }
+.wt-meter span { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #8FD16A, var(--leaf-deep)); }
+
+.wt-world-heading { margin: var(--s4) 0 var(--s2); }
+.wt-pages { display: grid; gap: var(--s3); grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); align-items: start; }
+.wt-page { display: grid; gap: 8px; }
+.wt-page h2 { margin: 0; font-size: 1.25rem; }
+.wt-page .kicker { margin: 0; }
+.wt-page--locked { opacity: .78; }
+.wt-page--locked p { margin: 0; }
+.wt-page--complete { box-shadow: inset 0 0 0 3px var(--leaf-deep); }
+.wt-page-count { margin: 0; color: var(--ink-soft); font: 700 var(--fs-s)/1.2 var(--font-display); }
+.wt-page--complete .wt-page-count { color: var(--leaf-deep); }
+
+.wt-words { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.wt-word {
+  display: inline-grid; justify-items: center; min-width: 52px; padding: 5px 9px 4px; border-radius: 10px;
+  background: #F3FAEF; box-shadow: inset 0 0 0 2px #CFE3D3; color: var(--navy);
+}
+.wt-word-text { font: 800 .9375rem/1.1 var(--font-display); letter-spacing: .04em; }
+.wt-word-kind { color: var(--ink-soft); font-size: .6875rem; font-weight: 700; line-height: 1.2; }
+.wt-word[data-kind="key"] { background: var(--state-success-bg); box-shadow: inset 0 0 0 2px var(--state-success-edge); }
+.wt-word[data-kind="golden"] { background: linear-gradient(#FFE47C, var(--sun)); box-shadow: inset 0 0 0 2px var(--sun-edge); }
+.wt-word[data-kind="golden"] .wt-word-kind { color: var(--navy); }
+.wt-word--missing { background: #fff; box-shadow: none; outline: 2px dashed #B9CDBE; outline-offset: -2px; }
+.wt-word--missing .wt-word-text { color: #9AB0A0; letter-spacing: .12em; }
+.wt-word--missing[data-kind="golden"] { background: #FFFBEA; box-shadow: none; outline-color: var(--sun-edge); }
+.wt-word--missing[data-kind="golden"] .wt-word-text { color: var(--navy); }
+
+.wt-verse summary {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; cursor: pointer;
+  color: var(--lagoon-deep); font: 700 var(--fs-s)/1.2 var(--font-display);
+}
+.wt-verse-body { margin-top: 6px; }
+
+/* Entry points: a card on the Growth Garden and a line under a finished level. */
+.garden-treasury-link { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-top: var(--s3); }
+.garden-treasury-link p { margin: 0; }
+.wg-treasury-note { margin: 6px 0 0; text-align: center; color: var(--navy); font-size: var(--fs-s); }

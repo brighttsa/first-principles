@@ -9,6 +9,7 @@ import { wireWheelPointer } from './word-garden-wheel-pointer-input.js';
 import { sparkBurst } from './kenney-icon-and-sparkle-helpers.js';
 import { gardenScene, reactInGarden } from './word-garden-adventure-reactions.js';
 import { createDiscoveryFeedback } from './word-garden-discovery-feedback-effects.js';
+import { recordTreasuryWord, treasuryNoteMarkup } from './word-treasury-collection-of-word-garden-finds.js';
 import { gardenWordsFor, requiredWords, bonusWordsFor, slotWords, validGardenContent, awardLeaves, leavesMarkup, gardenChipMarkup } from './word-garden-garden-words-golden-word-and-mastery-leaves.js';
 
 const word = (value) => String(value).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z]/g, '');
@@ -193,6 +194,7 @@ export function mount(root, p, ctx) {
     if (required.includes(answer)) {
       mark('target');
       found.add(answer);
+      recordTreasuryWord(p.id, answer);
       if (!secondRack) hintIndex = 0; // hints escalate per word; the second rack keeps its graded evidence hints
       const rackDone = required.every((item) => found.has(item));
       const finale = rackDone && (!p.nextLetters || secondRack);
@@ -263,7 +265,7 @@ export function mount(root, p, ctx) {
     root.querySelectorAll('[data-choice]').forEach((item) => { item.disabled = true; });
     button.classList.add('correct'); sfx('solved', .4);
     const leaves = awardLeaves(p, { hintsUsed, goldenFound: bonusFound.has(p.goldenWord) });
-    feedback.insertAdjacentHTML('afterend', leavesMarkup(leaves));
+    feedback.insertAdjacentHTML('afterend', leavesMarkup(leaves) + treasuryNoteMarkup(p.id));
     ctx.solved(p.afterLearn);
   }
   const undo = () => { selected.pop(); updatePath(); };
