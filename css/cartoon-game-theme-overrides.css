@@ -166,6 +166,11 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; letter-spacing:
 }
 @media (max-width: 899px) { .nav-brand { display: none; } .map-layout { padding-bottom: 0; } }
 
+/* A short viewport must not pin the tabs across the middle of the tall adventure painting. */
+@media (max-width: 899px) and (max-height: 640px) {
+  body[data-screen="map"] #nav { position: relative; bottom: auto; }
+}
+
 /* Painted art */
 .map-art { object-fit: cover; }
 .fog { position: absolute; top: var(--fog-top); left: 0; right: 0; bottom: 0; z-index: 2; pointer-events: none; backdrop-filter: grayscale(.75) brightness(1.05); -webkit-backdrop-filter: grayscale(.75) brightness(1.05);
