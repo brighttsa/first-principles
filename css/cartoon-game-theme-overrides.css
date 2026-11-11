@@ -283,3 +283,26 @@ body[data-screen="daily"]:not(:has(.ex)) #nav { display: flex; }
 .learning-progress dt { color: var(--ink-soft); font-size: var(--fs-s); }
 .learning-progress dd { margin: 0; font: 700 var(--fs-m)/1.2 var(--font-display); }
 .learning-progress > p.muted { font-size: var(--fs-s); }
+
+
+/* Tablet map composition: give the painted journey room and keep its shortcuts quiet. */
+@media (min-width: 768px) and (max-width: 899px) {
+  .screen.mapscreen .map-layout { gap: 10px; padding: 6px 0 18px; }
+  .mapscreen .world-strip { padding-block: 6px; padding-inline: 16px; }
+  .mapscreen .wchip { min-height: 48px; }
+  .mapscreen .map-next-stop { margin: 2px 16px 8px; padding: 7px 12px; gap: 8px; border-radius: 14px; }
+  .mapscreen .map-next-title { font-size: 1.15rem; }
+  .screen.mapscreen .map-wrap { aspect-ratio: 1360 / 781; border-radius: 0; container-type: inline-size; }
+  .mapscreen .map-layout > .dash { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .mapscreen .map-layout > .dash > .card {
+    min-width: 0; padding: 12px; border: 1px solid var(--paper-edge); border-radius: 16px;
+    box-shadow: 0 3px 0 rgba(36, 52, 106, .12);
+  }
+  .mapscreen .map-layout > .dash > .dash-daily { background: var(--paper); border-color: var(--paper-edge); }
+  .mapscreen .dash-row { gap: 8px; }
+  .mapscreen .dash-row .sprig { width: 42px; height: 48px; }
+  .mapscreen .dash .ring { width: 42px; height: 42px; }
+  .mapscreen .dash .big-n { font-size: 1.25rem; }
+  .mapscreen .dash .garden-thumb { margin: 4px 0 8px; }
+  .mapscreen .dash .btn { min-height: 44px; }
+}
