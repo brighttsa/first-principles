@@ -67,7 +67,7 @@ export function mount(root, p, ctx) {
     <p class="wg-bonus-status" role="status" aria-live="polite"></p>
     <div class="wg-board"><svg class="wg-links" aria-hidden="true"><polyline></polyline></svg><div class="wg-rack" role="group" aria-label="Letter garden"></div></div>
     <p class="wg-current" role="status" aria-live="polite">Choose letters, then submit your word.</p>
-    <div class="wg-actions"><button type="button" class="btn alt" data-clear>Clear</button><button type="button" class="btn alt" data-shuffle>Shuffle letters</button><button type="button" class="btn big" data-submit>Find word</button></div>
+    <div class="wg-actions"><button type="button" class="btn alt" data-clear>Clear</button><button type="button" class="btn alt" data-shuffle aria-label="Shuffle letters">Shuffle<span class="wg-label-extra"> letters</span></button><button type="button" class="btn big" data-submit>Find word</button></div>
     </div><div class="wg-discovery" hidden></div><div class="wg-question" hidden></div>
   </section>`;
   const targets = root.querySelector('.wg-targets'), rack = root.querySelector('.wg-rack');
