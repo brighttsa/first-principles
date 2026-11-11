@@ -13,13 +13,13 @@ export const STORIES = {
   john3: {
     id: 'john3', world: 1, title: 'A New Beginning', subtitle: 'John 3 · Nicodemus by night',
     scenes: [
-      { bg: 'early', night: true, sprite: 'lantern-lit', speaker: 'Narrator', mood: 'thinking',
+      { bg: 'early', night: true, sprite: null, speaker: 'Narrator', mood: 'thinking',
         text: 'Late one night, a respected teacher named Nicodemus came quietly through the garden to find Jesus.' },
-      { bg: 'early', night: true, sprite: 'lantern-lit', speaker: 'Narrator', mood: 'curious',
+      { bg: 'early', night: true, sprite: null, speaker: 'Narrator', mood: 'curious',
         text: 'Nicodemus knew that God must be with Jesus. But Jesus told him about something completely new.' },
-      { bg: 'early', night: true, sprite: 'doorway-lit', speaker: 'Jesus', mood: 'encouraging',
+      { bg: 'early', night: true, sprite: null, speaker: 'Jesus', mood: 'encouraging',
         text: 'Jesus answered him:', verse: 'Jn 3:3' },
-      { bg: 'early', night: true, sprite: 'doorway-lit', speaker: 'Narrator', mood: 'thinking',
+      { bg: 'early', night: true, sprite: null, speaker: 'Narrator', mood: 'thinking',
         text: 'Nicodemus wondered how anyone could be born a second time.',
         reveal: { before: 'The word Jesus used, ', word: 'again', after: ', means something wonderful.',
           meaning: 'It means “from above”. The new birth is a new life that comes down from God, from heaven.' } },
@@ -45,6 +45,7 @@ export const storyForWorld = (worldId) => Object.values(STORIES).find((s) => s.w
 export const BACKDROP = {
   early: 'assets/art/world-1-plates/landscape-early-2752.webp',
   complete: 'assets/art/world-1-plates/landscape-complete-2752.webp',
+  night: 'assets/art/story-a-new-beginning/night-garden-nicodemus-2528.webp',
 };
 export const SPRITE = {
   'lantern-lit': 'assets/art/gemini-world-1/sprite2-lantern-lit',

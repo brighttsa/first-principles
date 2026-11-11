@@ -8,8 +8,8 @@ body[data-screen="story"] #nav { display: none; }
 .lsb-stage { position: relative; flex: 1 1 auto; min-height: 42dvh; overflow: hidden; cursor: pointer; }
 .lsb-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: filter .8s ease; }
 .lsb-veil { position: absolute; inset: 0; pointer-events: none; transition: opacity .8s ease, background .8s ease; opacity: 0; }
-.lsb-stage[data-night="on"] .lsb-bg { filter: brightness(.5) saturate(.8) hue-rotate(205deg); }
-.lsb-stage[data-night="on"] .lsb-veil { opacity: 1; background: radial-gradient(60% 50% at 50% 42%, rgba(60,80,160,.25), rgba(8,16,44,.72)); }
+/* The night scenes use a true painted night backdrop, so no brightness filter — only a soft bottom vignette for text legibility. */
+.lsb-stage[data-night="on"] .lsb-veil { opacity: 1; background: linear-gradient(transparent 55%, rgba(8,16,44,.45)); }
 .lsb-art { position: absolute; left: 50%; bottom: 6%; transform: translateX(-50%); width: min(52%, 280px); pointer-events: none; filter: drop-shadow(0 10px 18px rgba(0,0,0,.4)); }
 .lsb-art picture, .lsb-art img { display: block; width: 100%; height: auto; }
 .lsb-art.lsb-pop { animation: lsb-pop .6s var(--ease-spring) both; }
@@ -29,6 +29,8 @@ body[data-screen="story"] #nav { display: none; }
   background: rgba(255, 210, 63, .35); box-shadow: inset 0 -3px 0 rgba(224,168,0,.5); cursor: pointer; animation: lsb-glow 1.6s ease-in-out infinite; }
 .lsb-word.is-open { animation: none; color: var(--leaf-deep); background: var(--state-success-bg); box-shadow: none; }
 .lsb-verse { margin: var(--s3) 0 0; }
+/* The verse is locked to KJV so it stays verbatim, but the puzzle-flavoured label and note don't belong in a story. */
+.lsb-verse .bible-reader-tools, .lsb-verse .bible-puzzle-note { display: none; }
 .lsb-action { margin-top: var(--s4); display: flex; flex-direction: column; gap: var(--s3); }
 .lsb-hint { margin: 0; font: 700 var(--fs-s)/1.3 var(--font-sans); color: var(--ink-soft); }
 .lsb-reveal { margin: 0; padding: 12px 14px; border-radius: 16px; background: var(--state-success-bg); color: var(--navy); font: 600 var(--fs-b)/1.45 var(--font-sans); }

@@ -20,9 +20,9 @@ Scripture is shown only through the Bible reader component (verbatim KJV from th
 ## Bespoke art still to produce (Gemini, not yet made)
 Match the existing World 1 plate style (bold ink outlines, saturated emerald/gold, ~15% watercolour softness). Portrait or square, transparent where a cutout is needed. Record model/method/date in `assets/licenses/ASSET-CREDITS-AND-LICENSES.txt`.
 
-1. **Nicodemus** — an older, kindly teacher in simple first-century robes, holding or beside a lantern (he came by night). Full figure cutout + a friendly bust. For the night scenes.
+1. **Nicodemus** — DONE as a full painted night scene (`assets/art/story-a-new-beginning/night-garden-nicodemus-2528.webp`): the teacher with a glowing lantern on the moonlit garden path. Used as the night backdrop for scenes 1-4. A separate figure cutout/bust could still be added for variety.
 2. **Jesus** — reverent, warm, not a face close-up; a standing figure with gentle light, robes. Used when the cited verse is His. Keep respectful and non-caricatured; get pastoral sign-off on depiction.
-3. **Night-garden backdrop** — a dedicated dusk version of the World 1 garden (stars, moonlight, lantern glow) so night scenes don't rely on a CSS filter of the day plate.
+3. **Night-garden backdrop** — DONE (same image as #1); the CSS day-plate filter is no longer used for night.
 4. Optional: a soft "wind/Spirit" motif backdrop for the "born of the Spirit" beat (John 3:8 theme), and a Nicodemus+Jesus two-shot for the conversation.
 
 Until (1)-(2) exist, scenes use the lantern/doorway sprites and Sprig rather than placeholder character faces.
