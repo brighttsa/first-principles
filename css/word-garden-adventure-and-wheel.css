@@ -111,6 +111,21 @@
 .wg-rack:has([aria-pressed="true"]) .wg-letter {
   transition: transform 100ms var(--ease-out), background-color 100ms, box-shadow 100ms;
 }
+/* Discovery feedback. Tiles animate `scale`/`translate` (not `transform`) so their centring transform is untouched.
+   Colour carries the meaning, so reduced motion (which removes the keyframes) still reads correctly. */
+.wg-letter.is-hit { background: #C9EFC4; border-color: var(--state-success-edge); animation: wg-tile-pop 260ms var(--ease-out) var(--wg-stagger, 0ms) both; }
+.wg-letter.is-bonus { background: #E7DDF7; border-color: #9A82C9; animation: wg-tile-pop 220ms var(--ease-out) var(--wg-stagger, 0ms) both; }
+.wg-letter.is-miss { background: #FBE3DE; border-color: #D9826F; animation: wg-tile-shake 240ms ease-in-out both; }
+@keyframes wg-tile-pop { 0% { scale: 1; } 40% { scale: 1.16 .9; } 70% { scale: .96 1.05; } 100% { scale: 1; } }
+@keyframes wg-tile-shake { 0%, 100% { translate: 0; } 25% { translate: -5px 0; } 50% { translate: 4px 0; } 75% { translate: -2px 0; } }
+/* The slot settles when the travelling word arrives rather than before it. */
+.wg-target.just-found { animation-delay: var(--wg-arrive, 0ms); }
+.wg-fly {
+  position: fixed; z-index: 60; pointer-events: none; padding: 6px 14px; border-radius: 14px;
+  background: #FFE071; border: 2px solid var(--sun-deep); color: var(--navy-strong);
+  font: 800 var(--fs-s)/1 var(--font-display); letter-spacing: .04em;
+  box-shadow: 0 6px 14px rgb(36 52 106 / .18); will-change: transform, opacity;
+}
 
 /* Small phones (about 320 x 568 up to 360 x 640): the wheel, Find word and Clear / Shuffle must be reachable without scrolling.
    Only vertical space is traded: the scene strip, titles and reserved feedback line shrink, and the exercise footer no longer

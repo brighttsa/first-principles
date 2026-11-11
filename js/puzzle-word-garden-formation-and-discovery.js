@@ -8,6 +8,7 @@ import { sfx, buzz } from './sound-effects-music-narration-haptics.js';
 import { wireWheelPointer } from './word-garden-wheel-pointer-input.js';
 import { sparkBurst } from './kenney-icon-and-sparkle-helpers.js';
 import { gardenScene, reactInGarden } from './word-garden-adventure-reactions.js';
+import { createDiscoveryFeedback } from './word-garden-discovery-feedback-effects.js';
 
 const word = (value) => String(value).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z]/g, '');
 export function canFormWord(letters, answer) {
@@ -55,6 +56,8 @@ export function mount(root, p, ctx) {
   let hintIndex = 0, answered = false, learning = false;
   let clearSparks;
   ctx.cleanup(() => clearSparks?.());
+  let fx; // discovery effects; created once the rack exists
+  ctx.cleanup(() => fx?.cleanup());
   const levelLabel = p.levelLabel || `Word Garden · Level ${p.levelNumber} of 10`;
   root.innerHTML = `<section class="word-garden"${p.adventure ? ` data-adventure="${p.adventure}"` : ''} aria-label="${esc(levelLabel)}">
     <header class="wg-heading">${p.adventure ? '' : `<p class="kicker">${esc(levelLabel)}</p>`}<h2>${esc(p.title)}</h2>
@@ -68,6 +71,7 @@ export function mount(root, p, ctx) {
     </div><div class="wg-discovery" hidden></div><div class="wg-question" hidden></div>
   </section>`;
   const targets = root.querySelector('.wg-targets'), rack = root.querySelector('.wg-rack');
+  fx = createDiscoveryFeedback(rack);
   const idlePrompt = p.adventure ? 'Drag to connect, or tap letters.' : 'Choose letters, then submit your word.';
   const current = root.querySelector('.wg-current'), polyline = root.querySelector('.wg-links polyline');
   let order = letters.map((letter, index) => ({ letter, index }));
@@ -172,6 +176,7 @@ export function mount(root, p, ctx) {
     if (answered || learning || !selected.length) return;
     const answer = selected.map(id => letters[id]).join('');
     if (answer.length < 3) return tell('Connect at least three letters.', 'retry');
+    const picked = [...selected]; // captured so the tiles can react after the selection clears
     clear();
     if (found.has(answer) || (!p.targetWords.includes(answer) && bonusFound.has(answer))) return tell(`Already found: ${answer}`, 'repeat');
     const target = p.nextLetters ? p.targetWords[Number(secondRack)] === answer : p.targetWords.includes(answer);
@@ -179,9 +184,13 @@ export function mount(root, p, ctx) {
     if (target) {
       mark('target');
       found.add(answer);
+      const finale = found.size === p.targetWords.length;
+      const tier = finale || answer === word(p.keyWord || '') ? 'key' : 'target';
+      fx.tiles(picked, tier);
       renderTargets(answer);
+      fx.fly(answer, targets.querySelector('.just-found'), tier);
       sfx('found', .42);
-      reactInGarden(root, 'happy', found.size, 'target');
+      reactInGarden(root, tier === 'key' ? 'celebrating' : 'happy', found.size, 'target');
       if (p.adventure) {
         clearSparks?.();
         clearSparks = sparkBurst(root.querySelector('.wg-scene'), 3);
@@ -200,10 +209,16 @@ export function mount(root, p, ctx) {
         if (restoreFocus) rack.firstElementChild.focus();
       }
       if (!p.adventure && answer === p.keyWord) revealKeyWord();
-      if (found.size === p.targetWords.length) showQuestion();
+      if (finale) {
+        // Let the last word land before the Scripture step replaces the board; input is already closed.
+        if (p.adventure) learning = true;
+        fx.afterLanding(showQuestion);
+      }
     } else if (bonuses.includes(answer)) {
+      fx.tiles(picked, 'micro');
       tell(recordBonus(answer), 'bonus', 'surprised');
     } else {
+      fx.tiles(picked, 'miss');
       mark('invalid');
       ctx.miss?.();
       sfx('oops', .35);
