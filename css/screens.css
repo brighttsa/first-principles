@@ -1,0 +1,163 @@
+/* Screen layouts. Mobile-first; desktop gets a study-desk two-column layout, not a stretched phone. */
+.screen { min-height: calc(100dvh - var(--nav-h)); position: relative; display: flex; flex-direction: column; }
+.screen.scenic { overflow: hidden; background: #FFE9A8; }
+.screen.scenic > .content { position: relative; z-index: 2; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: var(--s5) var(--s4) var(--s6); max-width: 560px; margin: 0 auto; width: 100%; }
+.screen.full { min-height: 100dvh; }
+.panel { background: rgba(255, 251, 240, .9); border-radius: var(--r-lg); padding: var(--s4) var(--s4) var(--s5); box-shadow: var(--shadow-paper); margin-top: 72px; }
+.logo { font: 700 var(--fs-xxl)/.95 var(--font-display); text-align: center; color: var(--ink); text-shadow: 0 3px 0 var(--sun), 0 6px 0 rgba(32, 61, 54, .15); margin: 0 0 var(--s2); }
+.logo small { display: block; font: 600 .38em/1.2 var(--font-display); letter-spacing: .22em; text-transform: uppercase; color: var(--lagoon-deep); text-shadow: none; margin-bottom: 6px; }
+.tagline { text-align: center; font: 500 var(--fs-m)/1.3 var(--font-serif); margin-bottom: var(--s5); }
+.stack { display: flex; flex-direction: column; gap: var(--s3); align-items: center; }
+.levels { display: grid; gap: var(--s3); width: 100%; }
+.level { display: flex; gap: var(--s4); align-items: center; text-align: left; padding: var(--s4); border-radius: var(--r-md); border: 3px solid var(--paper-edge); background: var(--paper); }
+.level[aria-pressed="true"] { border-color: var(--lagoon-deep); background: #E4F6F4; }
+.level b { font: 700 var(--fs-m) var(--font-display); display: block; }
+.level .big { font-size: 2rem; }
+
+/* Map */
+.mapwrap { position: relative; flex: 1; overflow-x: hidden; }
+.mapnodes { position: relative; z-index: 2; max-width: 520px; margin: 0 auto; padding: var(--s4) var(--s4) var(--s7); }
+.world { display: flex; align-items: center; gap: var(--s4); margin: 10px 0 18px; width: 82%; padding: var(--s3) var(--s4); background: rgba(255, 251, 240, .94); border-radius: 22px; box-shadow: var(--shadow-paper); border: 0; text-align: left; }
+.world:nth-child(even) { margin-left: auto; flex-direction: row-reverse; text-align: right; }
+.world .glyph { width: 64px; height: 64px; border-radius: 50%; flex: none; display: grid; place-items: center; box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .12); }
+.world .glyph svg { width: 40px; height: 40px; }
+.world.locked { background: rgba(255, 251, 240, .96); filter: saturate(.7); }
+.mapnodes::before { content: ""; position: absolute; left: 50%; top: 24px; bottom: 56px; border-left: 6px dotted rgba(255, 251, 240, .95); transform: translateX(-3px); z-index: -1; }
+.screen > .topbar { position: relative; z-index: 3; }
+.screen.scenic > .topbar .title { background: rgba(255, 251, 240, .92); padding: 6px 16px; border-radius: 999px; width: fit-content; flex: none; }
+.world b { font: 600 var(--fs-m)/1.1 var(--font-display); display: block; }
+.world .sub { font-size: var(--fs-s); color: var(--ink-soft); }
+
+/* Lesson: stage + study panel */
+.lesson { display: grid; gap: var(--s4); padding: 0 var(--s4) var(--s6); }
+.stage { min-width: 0; }
+.study { min-width: 0; }
+.study .card { margin-bottom: var(--s4); }
+.verse { font: 500 var(--fs-m)/1.55 var(--font-serif); border-left: 6px solid var(--sun); padding-left: var(--s4); margin: var(--s3) 0; }
+.ref { font: 700 var(--fs-s) var(--font-display); color: var(--lavender-deep); letter-spacing: .04em; }
+.notes { width: 100%; min-height: 96px; border-radius: 14px; border: 2px solid var(--paper-edge); padding: 12px; font: inherit; background: #fff; }
+.feedback { min-height: 3.2em; margin-top: var(--s4); display: flex; gap: var(--s3); align-items: center; }
+.feedback .sprig { width: 48px; height: 58px; flex: none; }
+.row { display: flex; gap: var(--s3); flex-wrap: wrap; justify-content: center; margin-top: var(--s4); }
+.talk { display: flex; flex-direction: column; align-items: center; gap: var(--s5); text-align: center; }
+.truth { background: linear-gradient(180deg, #FFFDF4, var(--paper)); border: 3px solid var(--sun); }
+
+/* Library / garden / complete */
+.page { padding: var(--s4) var(--s4) var(--s7); max-width: 900px; margin: 0 auto; width: 100%; }
+.grid2 { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+.garden { position: relative; border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--shadow-paper); background: #FFE9A8; }
+.plate { width: 220px; margin: 0 auto var(--s5); padding: 14px; background: var(--paper); border: 3px double var(--sun-deep); border-radius: 12px; text-align: center; box-shadow: var(--shadow-paper); }
+.plate svg, .plate img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.plate b { display: block; font: 700 var(--fs-m) var(--font-serif); margin-top: 8px; }
+.plate.locked { filter: grayscale(1); opacity: .5; }
+
+.garden-title { margin: 0; font: inherit; }
+.plant-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0 10px; }
+.garden-plot-button {
+  display: grid; align-content: center; gap: 2px; min-height: 58px; min-width: 0; padding: 8px 10px;
+  border: 2px solid var(--paper-edge); border-radius: 14px; background: var(--paper); color: var(--navy);
+  font: 700 var(--fs-s)/1.25 var(--font-display); text-align: start;
+  transition: transform 130ms var(--ease-out), background-color 130ms ease, border-color 130ms ease;
+}
+.garden-plot-button[aria-pressed="true"] { background: #eef8ed; border-color: var(--leaf-deep); }
+.garden-plot-button:active:not(:focus-visible) { transform: scale(.97); }
+.garden-plot-stage { color: var(--ink-soft); font: 800 var(--fs-s)/1.25 var(--font-sans); }
+.garden-plot-stage[data-stage="2"] { color: var(--leaf-deep); }
+.garden-selected-plot {
+  position: absolute; left: var(--plot-x); top: calc(var(--plot-y) - 2%); width: 17%; height: 8%;
+  transform: translate(-50%, -50%); border: 2px solid #fff6bc; border-radius: 50%;
+  box-shadow: 0 0 0 1px #695023; pointer-events: none;
+}
+.garden-plot-detail {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 14px 16px;
+  border: 1px solid var(--paper-edge); border-radius: 16px; background: var(--paper);
+}
+.garden-plot-detail h2 { margin: 0 0 3px; font-size: var(--fs-m); }
+.garden-plot-detail p { margin: 0; font-size: var(--fs-s); }
+.garden-plot-detail .garden-verse-ref { color: var(--lagoon-deep); font-weight: 800; margin-bottom: 4px; }
+.garden-action {
+  display: inline-flex; align-items: center; justify-content: center; flex: none; min-height: 44px;
+  padding: 8px 14px; border: 1px solid var(--sun-edge); border-radius: 12px; background: #ffe47d;
+  color: var(--navy); font: 700 var(--fs-s) var(--font-display); text-decoration: none;
+  transition: transform 130ms var(--ease-out), background-color 130ms ease;
+}
+.garden-action:active:not(:focus-visible) { transform: scale(.97); }
+.garden-note { margin: 12px 0 22px; font-size: var(--fs-s); }
+.garden-visitors { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(125px, 1fr)); gap: 10px; padding: 0; }
+.garden-visitor { border: 1px solid var(--paper-edge); border-radius: 14px; background: var(--paper); text-align: center; padding: 12px 8px; }
+.garden-visitor img { display: block; margin: 0 auto 4px; width: 72px; height: 72px; border-radius: 16px; }
+.garden-visitor[data-earned="false"] img { filter: grayscale(1); opacity: .65; }
+.garden-visitor p, .garden-bookplate p { margin: 3px 0 0; font-size: var(--fs-s); color: var(--ink-soft); }
+.garden-bookplate-heading { margin-top: 24px; }
+.garden-bookplate.locked { opacity: 1; filter: none; }
+.garden-bookplate.locked svg, .garden-bookplate.locked img { filter: grayscale(1); opacity: .65; }
+@media (hover: hover) and (pointer: fine) {
+  .garden-plot-button:hover:not([aria-pressed="true"]) { border-color: var(--lagoon-deep); }
+  .garden-action:hover { background: var(--sun); }
+}
+@media (min-width: 1150px) {
+  .garden-experience { display: grid; grid-template-columns: minmax(0, 1fr) 270px; gap: 16px; align-items: start; }
+  .garden-controls .plant-list { margin-top: 0; gap: 7px; }
+  .garden-controls .garden-plot-button { padding-inline: 7px; }
+  .garden-plot-detail { align-items: stretch; flex-direction: column; gap: 10px; }
+}
+@media (max-width: 480px) {
+  .garden-plot-button { padding-inline: 7px; }
+  .garden-plot-detail { align-items: stretch; flex-direction: column; gap: 9px; padding: 12px; }
+}
+.confetti i { position: fixed; top: -20px; width: 10px; height: 16px; border-radius: 2px; z-index: 60; animation: fall linear forwards; pointer-events: none; }
+
+@media (min-width: 900px) {
+  :root { --nav-h: 64px; }
+  #shell { flex-direction: column; }
+  #nav { position: sticky; top: 0; bottom: auto; border-top: 0; border-bottom: 2px solid var(--paper-edge); justify-content: flex-end; gap: 6px; padding: 6px 24px; }
+  .nav-brand { display: flex; align-items: center; margin-right: auto; font: 700 1.4rem var(--font-display); gap: 10px; }
+  .nav-i { flex-direction: row; gap: 8px; font-size: 15px; }
+  .screen.scenic > .content { justify-content: center; max-width: 620px; }
+  .lesson { grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: var(--s6); max-width: 1180px; margin: 0 auto; width: 100%; padding: var(--s4) var(--s6) var(--s7); }
+  .study { position: sticky; top: calc(var(--nav-h) + 16px); align-self: start; max-height: calc(100dvh - var(--nav-h) - 32px); overflow: auto; }
+  .world { width: 60%; }
+  .mapnodes { max-width: 760px; }
+}
+@media (min-width: 600px) and (max-width: 899px) { .lesson { max-width: 680px; margin: 0 auto; } }
+
+/* Water and the Spirit uses one reading lane, with study tools available on demand. */
+[data-field-lesson] .lesson {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s5);
+  width: 100%; max-width: 760px; margin-inline: auto;
+}
+[data-focus="on"] [data-field-lesson][data-phase="discover"] .study { display: none; }
+[data-field-lesson] .lesson-discover { max-inline-size: none; }
+[data-field-lesson] .field-objective {
+  padding: var(--s3) var(--s4); margin: var(--s4) 0; border-inline-start: 4px solid var(--lagoon-deep);
+  background: var(--paper-shade); border-radius: var(--r-sm); font-weight: 700;
+}
+.field-objective .kicker { display: block; }
+[data-field-lesson][data-phase="solve"] .ex-card {
+  padding: var(--s4) 0; background: transparent; border-radius: 0; box-shadow: none;
+}
+[data-field-lesson] .ex-top { margin-block-end: var(--s3); }
+[data-field-lesson] .ex-heading { margin-block-end: var(--s2); }
+[data-field-lesson] .ex-foot[data-state] {
+  margin-inline: 0; border: 2px solid var(--paper-edge); border-radius: var(--r-md);
+}
+[data-field-lesson] .ex-foot[data-state="ok"] { border-color: var(--state-success-edge); }
+[data-field-lesson] .ex-foot[data-state="bad"] { border-color: var(--state-error-edge); }
+.field-disclosure {
+  border: 1px solid var(--paper-edge); border-radius: var(--r-sm); background: var(--paper);
+}
+.field-disclosure > summary {
+  min-height: var(--target); padding: var(--s3) var(--s4); cursor: pointer;
+  font: 700 var(--fs-s)/1.35 var(--font-sans); color: var(--lagoon-deep);
+}
+.field-disclosure > div { padding: 0 var(--s4) var(--s3); }
+.field-study-content > :last-child { margin-block-end: 0; }
+.field-truth-extras { display: grid; gap: var(--s2); margin-block-start: var(--s5); }
+[data-field-lesson] .study {
+  position: static; max-height: none; overflow: visible;
+}
+
+/* Keep puzzle play focused on phones; the verse stays on Discover and feedback, while study tools return at the next lesson step. */
+@media (max-width: 899px) {
+  .screen[data-phase="solve"] > .lesson > .study { display: none; }
+}

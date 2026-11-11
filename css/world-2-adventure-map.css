@@ -1,0 +1,10 @@
+/* World 2 map: Sprout waits in empty sky so it never covers the windmill, the kites or a marker. World 1 is unchanged (data-world is set only for later worlds). */
+.living-world[data-world="2"] .world-guide { top: 24%; left: 3%; right: auto; }
+@media (min-width: 768px) {
+  .living-world[data-world="2"] .world-guide { top: 5%; left: 56%; right: auto; }
+}
+
+/* Keep the review label above the windmill marker on tablets, clear of the bell-tower stop. */
+@media (min-width: 768px) and (width < 1100px) {
+  .living-world[data-world="2"] .mnode[data-kind="quiz"] { flex-direction: column-reverse; top: calc(var(--wide-y) - 4%); }
+}

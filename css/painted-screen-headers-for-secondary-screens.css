@@ -1,0 +1,91 @@
+/* Secondary screens (Library, Progress, Achievements, Settings, Daily Word) open on a crop of the World 1 painting,
+   so they belong to the same world as the map instead of reading as plain app pages. Each screen shows the landmark
+   it relates to: Bible (Library), lantern (Progress), mountains (Achievements), stream (Settings), sunrise (Daily Word).
+   The painting is only a backdrop; the title sits on a solid plate so it stays readable. */
+body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"]) .screen > .topbar {
+  position: relative; min-height: 112px; align-items: center; padding: 0 var(--s4);
+  background: var(--scene) var(--pos, 50% 50%) / var(--zoom, 240%) auto no-repeat, #bfe3a4;
+  border-bottom: 4px solid #fff; box-shadow: 0 6px 0 rgba(36, 52, 106, .12);
+  --scene: url("../assets/art/world-1-plates/landscape-early-2752.webp");
+}
+body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"]) .screen > .topbar .title {
+  flex: 0 1 auto; max-width: 100%; background: #fffdf7; color: var(--navy); border-radius: 16px; padding: 8px 18px; font: 700 var(--fs-l)/1.1 var(--font-display);
+  box-shadow: 0 4px 0 rgba(36, 52, 106, .16);
+}
+body[data-screen="library"] .screen > .topbar { --pos: 100% 50%; }
+body[data-screen="progress"] .screen > .topbar { --pos: 83% 32%; }
+body[data-screen="achievements"] .screen > .topbar { --pos: 77% 9%; }
+body[data-screen="settings"] .screen > .topbar { --pos: 29% 65%; }
+body[data-screen="daily"] .screen > .topbar { --pos: 12% 5%; }
+body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"]) .screen > .topbar + * { margin-top: 28px; }
+@media (min-width: 900px) {
+  body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"]) .screen > .topbar { min-height: 148px; padding-inline: var(--s6); --zoom: 130%; }
+  body[data-screen="library"] .screen > .topbar { --pos: 100% 50%; } body[data-screen="progress"] .screen > .topbar { --pos: 100% 33%; } body[data-screen="achievements"] .screen > .topbar { --pos: 100% 11%; }
+  body[data-screen="settings"] .screen > .topbar { --pos: 0% 65%; } body[data-screen="daily"] .screen > .topbar { --pos: 0% 7%; }
+}
+
+/* These screens follow the active world. Cap the new crop at half the source width to retain detail. */
+body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"]) .screen[data-world="2"] > .topbar {
+  --scene: url("../assets/art/world-2-plates/landscape-early-2752.webp");
+  --zoom: min(230%, 1376px);
+  width: 100%; max-width: 1376px; margin-inline: auto;
+}
+body[data-screen="library"] .screen[data-world="2"] > .topbar { --pos: 7% 56%; }
+body[data-screen="progress"] .screen[data-world="2"] > .topbar { --pos: 93% 32%; }
+body[data-screen="achievements"] .screen[data-world="2"] > .topbar { --pos: 54% 21%; }
+@media (min-width: 900px) {
+  body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"]) .screen[data-world="2"] > .topbar {
+    --zoom: min(130%, 1376px);
+  }
+}
+.onboarding-heading { font-size: var(--fs-l); }
+
+/* Keep native portrait and landscape plates at two source pixels per CSS pixel. */
+.screen.scenic:has(> .wp-hero-hd) { background: #e8efce; }
+.screen.scenic > .wp-hero-hd { max-width: 768px; max-height: 1376px; margin-inline: auto; }
+@media (min-width: 700px) and (orientation: landscape) {
+  .screen.scenic > .wp-hero-hd {
+    max-width: 1376px; max-height: 768px;
+    mask-image: linear-gradient(#000 calc(100% - 48px), transparent);
+  }
+}
+
+/* Each lesson opens on its own landmark: doorway, stream and bridge, sprout garden, lantern. */
+body[data-screen="lesson"] .screen[data-lesson="0"] > .topbar { --pos: 0% 35%; }
+body[data-screen="lesson"] .screen[data-lesson="1"] > .topbar { --pos: 29% 58%; }
+body[data-screen="lesson"] .screen[data-lesson="2"] > .topbar { --pos: 59% 63%; }
+body[data-screen="lesson"] .screen[data-lesson="3"] > .topbar { --pos: 83% 32%; }
+@media (min-width: 900px) {
+  body[data-screen="lesson"] .screen[data-lesson="0"] > .topbar { --pos: 0% 35%; } body[data-screen="lesson"] .screen[data-lesson="1"] > .topbar { --pos: 0% 57%; }
+  body[data-screen="lesson"] .screen[data-lesson="2"] > .topbar { --pos: 72% 62%; } body[data-screen="lesson"] .screen[data-lesson="3"] > .topbar { --pos: 100% 33%; }
+}
+/* Phone map: a slimmer title card so the painted landmarks stay visible. */
+@media (max-width: 899px) {
+  .mh-kick { display: none; }
+  .mh-text { padding: 8px 14px 10px; }
+  .mh-text h1 { margin-bottom: 4px; font-size: 1.3rem; }
+  .map-head .ex-bar { height: 12px; }
+}
+@media (max-width: 899px) {
+  body[data-screen="lesson"] .screen > .topbar .title { flex: 0 1 auto; min-width: 0; font-size: var(--fs-m); padding: 8px 14px; }
+}
+
+/* One look for every screen: the whole page sits inside the painted garden behind a soft light veil, and cards are translucent, so
+   Settings, Daily, Progress, Library and lessons feel like part of the game instead of white website pages. The title keeps its plate. */
+body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"], [data-screen="review"]) #app {
+  background: linear-gradient(rgba(255, 250, 236, .55), rgba(255, 250, 236, .78) 50%, rgba(255, 250, 236, .6)), url("../assets/art/world-1-plates/portrait-early-1536.webp") center / cover fixed;
+  min-height: calc(100dvh - var(--nav-h, 66px));
+}
+body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"], [data-screen="review"]) .screen > .topbar {
+  min-height: 0; background: none; border-bottom: 0; box-shadow: none; padding-block: var(--s3);
+}
+body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"], [data-screen="review"]) .screen > .topbar + * { margin-top: var(--s2); }
+body:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"], [data-screen="review"]) :is(.card, .ex-card, .panel) {
+  background: rgba(255, 253, 247, .84); border: 3px solid rgba(255, 255, 255, .85); border-radius: 24px;
+  box-shadow: 0 6px 0 rgba(36, 52, 106, .1), 0 16px 26px rgba(36, 52, 106, .12);
+}
+body:is([data-screen="lesson"], [data-screen="review"]) .ex-foot { background: rgba(255, 253, 247, .84); border-radius: 20px; }
+/* The whole-page backdrop follows the active world, so World 2 screens sit in the World 2 scene, not the World 1 garden. */
+body[data-world="2"]:is([data-screen="library"], [data-screen="progress"], [data-screen="achievements"], [data-screen="settings"], [data-screen="daily"], [data-screen="lesson"], [data-screen="review"]) #app {
+  background-image: linear-gradient(rgba(255, 250, 236, .55), rgba(255, 250, 236, .78) 50%, rgba(255, 250, 236, .6)), url("../assets/art/world-2-plates/portrait-early-1536.webp");
+}

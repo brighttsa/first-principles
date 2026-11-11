@@ -1,0 +1,51 @@
+/* Motion: environmental life, character, feedback. Every rule is cancelled by reduced motion. */
+@keyframes sway { 0%, 100% { transform: rotate(-1.6deg); } 50% { transform: rotate(1.6deg); } }
+@keyframes drift { from { transform: translateX(-110px); } to { transform: translateX(520px); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bloom { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+@keyframes fly { from { transform: translate(-60px, 0); } to { transform: translate(480px, -50px); } }
+@keyframes flap { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(.35); } }
+@keyframes flow { to { stroke-dashoffset: -60; } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
+@keyframes pulse { 50% { transform: scale(1.25); background: var(--sun); } }
+@keyframes pop { 0% { transform: scale(.6); } 70% { transform: scale(1.1); } 100% { transform: scale(1); } }
+@keyframes unfold { from { transform: perspective(900px) rotateX(-70deg); opacity: 0; transform-origin: top; } to { transform: perspective(900px) rotateX(0); opacity: 1; transform-origin: top; } }
+@keyframes fall { to { transform: translateY(110vh) rotate(720deg); } }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+.scene g, .sprig g, .sprig path { transform-box: fill-box; }
+.tree { transform-origin: 50% 100%; animation: sway 5s ease-in-out infinite; }
+.tree.b { animation-delay: -2s; animation-duration: 6.5s; }
+.sun .rays { transform-origin: 50% 50%; animation: spin 90s linear infinite; }
+.cloud { animation: drift 70s linear infinite; } .cloud.c2 { animation-duration: 95s; animation-delay: -40s; } .cloud.c3 { animation-duration: 120s; animation-delay: -80s; }
+.bird { animation: fly 28s linear infinite; } .bird.b2 { animation-delay: -12s; animation-duration: 36s; }
+.flower { transform-origin: 50% 100%; animation: bloom .9s var(--ease-spring) both; }
+.flower:nth-of-type(2n) { animation-delay: .25s; } .flower:nth-of-type(3n) { animation-delay: .5s; }
+.river-flow { stroke-dasharray: 14 16; animation: flow 3s linear infinite; }
+.bfly { animation: bob 3s ease-in-out infinite; } .bfly .wing { transform-origin: 50% 50%; animation: flap .5s ease-in-out infinite; }
+.px1 { transform: translate(calc(var(--mx, 0) * -3px), calc(var(--my, 0) * -1px)); }
+.px2 { transform: translate(calc(var(--mx, 0) * -7px), calc(var(--my, 0) * -2px)); }
+.px3 { transform: translate(calc(var(--mx, 0) * -13px), calc(var(--my, 0) * -3px)); }
+.px1, .px2, .px3 { transition: transform .5s var(--ease-out); }
+
+.sprig .sp-body { transform-origin: 50% 100%; animation: bob 2.6s ease-in-out infinite; }
+.sprig .leaf.l { transform-origin: 100% 100%; animation: sway 3s ease-in-out infinite; }
+.sprig .leaf.r { transform-origin: 0 100%; animation: sway 3s ease-in-out infinite reverse; }
+.sprig .m-open, .sprig[data-mood="idle"] .m-open, .sprig[data-mood="curious"] .m-open { display: none; }
+.sprig[data-mood="happy"] .m-smile, .sprig[data-mood="cheer"] .m-smile { display: none; }
+.sprig[data-mood="happy"] .m-open, .sprig[data-mood="cheer"] .m-open { display: block; }
+.sprig[data-mood="cheer"] .sp-body { animation: bob .45s ease-in-out infinite; }
+.sprig[data-mood="curious"] .sp-body { transform: rotate(-6deg); }
+
+.pop { animation: pop .35s var(--ease-spring); }
+.unfold { animation: unfold .7s var(--ease-out) both; }
+.rise { animation: rise .5s var(--ease-out) both; }
+.tile.settle { animation: pop .3s var(--ease-spring); }
+.win .tile { animation: bob .6s ease-in-out 2; } .win .tile:nth-child(2n) { animation-delay: .1s; }
+
+/* Reduced motion: user setting or OS preference */
+[data-motion="reduced"] *, [data-motion="reduced"] *::before, [data-motion="reduced"] *::after { animation: none !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+@media (prefers-reduced-motion: reduce) {
+  [data-motion="auto"] *, [data-motion="auto"] *::before, [data-motion="auto"] *::after { animation: none !important; transition-duration: .01ms !important; }
+}

@@ -1,0 +1,25 @@
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--ivory); color: var(--ink);
+  font: 400 var(--fs-b)/1.55 var(--font-sans); min-height: 100dvh;
+  -webkit-tap-highlight-color: transparent;
+}
+h1, h2, h3 { font-family: var(--font-serif); line-height: 1.15; margin: 0 0 var(--s3); font-weight: 700; }
+h1 { font-size: var(--fs-xl); } h2 { font-size: var(--fs-l); } h3 { font-size: var(--fs-m); }
+p { margin: 0 0 var(--s3); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; border-radius: 8px; }
+html[data-input-mode="pointer"] :focus-visible { outline: none !important; }
+#app:focus-visible, .ex-card:focus-visible, [tabindex="-1"]:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 4px; border-radius: 12px; }
+/* Route headings receive programmatic focus for announcement, not keyboard navigation. */
+h1[tabindex="-1"]:focus-visible { outline: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: -999px; top: 8px; display: inline-flex; align-items: center; min-height: 44px; background: var(--ink); color: var(--ivory); padding: 8px 14px; z-index: 99; border-radius: 8px; }
+.skip:focus { left: 8px; }
+#shell { display: flex; flex-direction: column-reverse; min-height: 100dvh; }
+#app { flex: 1; position: relative; outline: none; padding-bottom: env(safe-area-inset-bottom); }
+.kicker { font: 600 var(--fs-s)/1 var(--font-display); letter-spacing: .08em; text-transform: uppercase; color: var(--lagoon-deep); margin-bottom: var(--s2); }
+.muted { color: var(--ink-soft); }
+.hide { display: none !important; }
+[data-focus="on"] .study-extra, [data-phase="discover"] .study-primary { display: none; }

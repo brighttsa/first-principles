@@ -1,0 +1,205 @@
+First Principles - third-party asset record
+
+All files below come from the local "Kenney Game Assets All-in-1" folder (kenney.nl).
+Every pack used carries "License: Creative Commons Zero, CC0"; the pack's own License.txt is kept in this folder.
+Attribution is not required (crediting Kenney is optional). Pack Preview.png images are NOT used.
+
+Pack (licence file)                         Used in this game
+Game Icons (kenney-game-icons-LICENSE)      assets/icons/*.png (white 100px icons, tinted in CSS)
+Particle Pack (kenney-particle-pack-LICENSE) assets/particles/ (star_01, spark_01, circle_05, resized to 96px)
+Medals (kenney-medals-LICENSE)              assets/medals/flat_medal1-6.png (resized to 128px)
+Animal Pack Remastered (kenney-animal-pack-remastered-LICENSE)  assets/animals/*.png (garden visitors, resized to 112px)
+UI Audio (kenney-ui-audio-LICENSE)          not currently used (files removed)
+Interface Sounds (kenney-interface-sounds-LICENSE)  assets/audio/ select, tick, drop, confirmation, error, open, close, pluck, toggle, question, scroll, back
+Music Jingles (kenney-music-jingles-LICENSE) assets/audio/jingle-*.ogg (steel drum)
+Music Loops (kenney-music-loops-LICENSE)    assets/audio/music-farm-frolics.ogg
+
+Original artwork (scenes, Sprig/Drizzle/Bloom, glyphs, bookplate) is made for this game and is not from Kenney.
+
+AI-generated art (this session, via the connected Gamma image tool; check its terms for commercial use before release):
+  art/mascot-idle.png (mascot, background removed locally), art/map-world1.jpg (World 1 map and hero/garden crops).
+  Originals kept as art/mascot-raw.jpg and art/map-raw.jpg.
+AI-generated mascot expressions (OpenAI built-in imagegen; the original mascot was used as a visual reference; check generator terms for commercial use before release):
+  art/mascot-poses/mascot-{happy,thinking,pointing,encouraging,celebrating,surprised}.png (six transparent pose images).
+
+World 1 landscape (Gamma image tool): art/world1-wide-raw.jpg is the source;
+  art/world1-wide-concept.jpg is the desktop game export. The map crops the
+  far-right edge in CSS and uses separate landmark coordinates for each aspect ratio.
+
+Map art workflow: keep the source separate from the optimized JPG. When replacing
+  an export, update its dimensions, aspect ratio, and landmark coordinates together.
+  Check the route, marker labels, and fog at portrait and landscape sizes. Record
+  the actual generator or source and release terms for new art here.
+
+Sprig idle production master: art/mascot-idle-master-v2.png (1102 x 1427 RGBA).
+  Generated with the Codex built-in image generator from art/mascot-idle.png.
+  The owner approved the built-in route based on OpenAI's Images 2.6 rollout
+  announcement. This tool does not report a per-image model ID or variant.
+  This source master is reserved for the matching pose set.
+
+Sprig v2 expression atlas: art/mascot-expression-atlas-v2.png.
+  Generated with the Codex built-in image generator from
+  art/mascot-idle-master-v2.png, using the same owner-approved Images 2.6
+  rollout basis. The tool supplies no per-image model identifier.
+  Runtime files: art/mascot-poses-v2/mascot-*.webp, exported from the atlas
+  and idle master on a shared transparent 400 x 466 canvas.
+
+Sprig motion atlas: art/mascot-motion-atlas-v2.png. Two blink and four hop
+  frames, generated with the owner-approved Codex built-in workflow from
+  art/mascot-idle-master-v2.png and art/mascot-expression-atlas-v2.png.
+  The tool supplies no per-image model ID. Runtime frames are transparent
+  400 x 466 WebP exports in art/mascot-poses-v2/.
+
+World 1 crossing: art/world-1-crossing/water-effects-atlas.png and four
+  transparent runtime WebP layers. Generated with the owner-approved
+  Codex built-in workflow using art/map-world1.jpg and
+  art/world1-wide-concept.jpg as references. The tool supplies no
+  per-image model identifier. Bridge and bank masks are registration geometry.
+
+World 1 Growth Garden: art/world-1-growth-garden/garden-plate-source.png
+  and plant-growth-atlas.png. Generated with the owner-approved Codex
+  built-in workflow from both World 1 map paintings. The tool supplies no
+  per-image model ID. Runtime assets are WebP plate sizes and three
+  transparent plant sprites.
+
+Responsive World 1 map exports: art/world-1-map-exports/*.webp.
+  Derived from existing art/map-raw.jpg and art/world1-wide-raw.jpg.
+  The high-density versions retain the source pixel dimensions.
+  No additional illustration generation was used for these exports.
+
+Lesson feedback polish: no new artwork or generated images were added; existing Sprig poses and Kenney icons were reused.
+
+Painted screen headers: css/painted-screen-headers-for-secondary-screens.css crops the existing
+  art/world-1-map-exports/map-landscape-*.webp as header backdrops. No new illustration was generated.
+
+Art route decision (2026-11-09): new production art uses Gemini Pro. Each new asset must record the
+  model name actually reported by the Gemini API (or confirmed from the Gemini app), the method, and the date.
+  Existing assets above keep their original recorded sources. As of this entry no Gemini art has been generated;
+  the key configured for the ai-multimodal skill returned 401 (invalid) when listing models.
+
+Gemini World 1 landmark sprites (2026-11-09): assets/art/gemini-world-1/sprite-{doorway-sleeping,doorway-lit,bible-closed,bible-open}.png
+  Generated by the owner in the Gemini app (Pro option selected; the app does not display a model name, so none is recorded;
+  the files' embedded content credentials state "Created by Google Generative AI" with a SynthID watermark and name no model) from
+  assets/art/world-1-map-exports/map-*-hd.webp as style references, prompts in docs/world-1-gemini-prompts-ready-to-paste.md.
+  Runtime derivatives (magenta keyed out, cropped, WebP at 768 and 384 px): same folder, sprite-*-768.webp / -384.webp.
+  Open-Bible redo (same day, Gemini app) supplied as JPEG: assets/art/gemini-world-1/sprite-bible-open-v2-source.jpg; the first version is kept as
+  sprite-bible-open-v1-with-halo-source.png. Runtime sprite-bible-open-768/384.webp come from the redo (magenta and glow halo keyed out).
+  Status: all four pass the edge check on dark, cream and green backgrounds. Stone is still purple (the redo was based on the purple closed Bible).
+  None of these is wired into the game yet.
+
+Gemini World 1 layers, batch 2 (2026-11-09, Gemini app, Pro option; no model name displayed; supplied as JPEG):
+  APPROVED: layer-path-portrait-source.jpg (1116x2000) -> layer-path-portrait-1116.webp and -558.webp (magenta keyed out, clean on dark/cream/green).
+  REJECTED, kept for reference only: layer-path-landscape-source-rejected.jpg (extreme perspective, giant stones at left, zigzag instead of a left-to-right route),
+  layer-landscape-landscape-source-rejected.jpg (two stacked hill layers with a half-faded band that cannot be keyed, large flat navy shadow voids),
+  layer-landscape-portrait-source-rejected.jpg (contains the path although the prompt said none; large navy voids).
+  None of these is wired into the game yet.
+
+Gemini World 1 layers, batch 3 (2026-11-09, same method as batch 2):
+  APPROVED: layer-landscape-landscape-source.jpg (2000x1116) -> layer-landscape-landscape-2000.webp / -1400.webp (midground hills, magenta only above the ridge, clean edges).
+  PENDING REDO: layer-landscape-portrait-v2-source-bottom-edge-open.jpg (good art but the hills end in a wavy edge with magenta below, so it leaves a gap at the bottom of the map);
+  layer-path-landscape-v2-source-rejected.jpg (still extreme perspective, giant stones at left, path leaves the frame).
+  Not wired into the game yet.
+
+Gemini World 1 landscape path (2026-11-09): generated in the Gemini app with the model selected as "3.1 Pro" (model picker label, Gemini app),
+  prompted with assets/art/world-1-map-exports/map-landscape-hd.webp as style reference, then refined twice in the same chat.
+  Source: assets/art/gemini-world-1/layer-path-landscape-source.jpeg (2752x1536) -> layer-path-landscape-2752.webp and -1400.webp (magenta keyed out, clean on three backgrounds).
+  Flat top-down view; the route is a serpentine with three S-loops (Gemini ignored requests for two gentle bends in three attempts). Not wired into the game yet.
+  Earlier path-landscape attempts (perspective versions) were rejected and deleted.
+
+Gemini World 1 portrait midground (2026-11-09): derived from layer-landscape-portrait-v2-source-bottom-edge-open.jpg (Gemini app, Pro option; see batch 3).
+  Instead of a regeneration, the image was cropped above its wavy bottom outline (kept rows 0-1667 of 2000) so the hills reach the bottom edge of the layer.
+  Runtime: layer-landscape-portrait-1116.webp (1116x1667) and -558.webp. Anchor it to the bottom of the portrait map. Not wired into the game yet.
+
+Gemini World 1 skies (2026-11-09): generated in the Gemini app, model picker set to "3.1 Pro", in one chat with map-portrait-hd.webp and map-landscape-hd.webp attached as style references.
+  Portrait: assets/art/gemini-world-1/layer-sky-portrait-source.jpeg (1536x2752) -> layer-sky-portrait-full.webp / -1116.webp.
+  Landscape: layer-sky-landscape-source.jpeg (2752x1536) -> layer-sky-landscape-full.webp / -1400.webp.
+  Opaque layers (no keying). Soft sun rays are part of the art; a few clouds touch the frame edge. Not wired into the game yet.
+
+Gemini World 1 distant hills, portrait (2026-11-09, Gemini app, picker "3.1 Pro", same reference chat; second attempt after the first included a lavender sky):
+  Source assets/art/gemini-world-1/layer-distance-portrait-source.jpeg (1536x2752) -> layer-distance-portrait-full.webp / -1116.webp
+  (magenta keyed out, cropped to the mountain band, 1536x713). Clean on blue, cream and yellow backgrounds. Not wired into the game yet.
+
+Gemini World 1 distant hills, landscape (2026-11-09, Gemini app, picker "3.1 Pro", same reference chat):
+  Source layer-distance-landscape-source.jpeg (2752x1536) -> layer-distance-landscape-full.webp / -1400.webp (magenta keyed out, cropped to the mountain band). Not wired into the game yet.
+
+Gemini World 1 foreground, landscape (2026-11-09, Gemini app, picker "3.1 Pro", same reference chat):
+  Source assets/art/gemini-world-1/layer-foreground-landscape-source.jpeg (2752x1536) -> layer-foreground-landscape-full.webp / -1400.webp
+  (every magenta pixel removed, including the empty centre and gaps between leaves; clean on blue, cream and navy). Not wired into the game yet.
+
+Gemini World 1 foreground, portrait (2026-11-09, Gemini app, picker "3.1 Pro", same reference chat):
+  Source layer-foreground-portrait-source.jpeg (1536x2752; copied from the app's staged download file, the app never renamed it) -> layer-foreground-portrait-full.webp / -1116.webp
+  (all magenta removed). Not wired into the game yet.
+
+Gemini World 1 raised-angle landscape path and landmark sprites (2026-11-09, Gemini app, picker "3.1 Pro", same reference chat; files downloaded from the app,
+  two of them copied from the Claude app's hidden staging files that were never renamed):
+  Path (replaces the flat top-down landscape path for the landscape map): layer-path-landscape-v2-raised-source.jpeg (2752x1536)
+    -> layer-path-landscape-v2-full.webp / -1400.webp. Mild perspective, three wide bends, matches the hill angle.
+  Sprites (grey-tan stone, glows kept inside the carvings): sprite-garden-sprout-source.jpeg, sprite-garden-bloom-source.jpeg,
+    sprite-tablets-plain-source.jpeg, sprite-tablets-lit-source.jpeg (2048x2048 each) -> sprite-*-768.webp / -384.webp (magenta keyed out, cropped).
+  Not wired into the game yet.
+  Bridge sprite (same session and method): sprite-bridge-dry-source.jpeg (2048x2048, copied from the app's staging file) -> sprite-bridge-dry-768.webp / -384.webp.
+
+World 1 layered map in the game (2026-11-09): runtime copies of the approved Gemini layers and sprites live in assets/art/world-1-layered/ (WebP only; sources stay in assets/art/gemini-world-1/).
+  Used by js/world-1-layered-environment-scene.js and css/world-1-layered-environment.css. The older single-painting map (world-1-map-exports, world-1-crossing water layers,
+  world-1-environment-art-and-effects.js) is no longer used by the map screen but is still in the repository.
+
+World 1 landmark sprites, disc-free set (2026-11-09, Gemini app, picker "3.1 Pro", same reference chat): the first sprite set drew each landmark on its own grass disc, which looked pasted on.
+  Regenerated without any ground: doorway (lit), footbridge (dry), garden bed (sprout, bloom), lantern post (unlit, lit), Bible on a stone pillar (closed, open).
+  Sources assets/art/gemini-world-1/sprite2-*-source.jpeg (2048x2048); runtime WebP in assets/art/world-1-layered/ (768 and 384 px), magenta keyed out and leftover fragments removed.
+  The two-tablet landmark was replaced by the lantern post: upright rounded stone slabs read as gravestones. The old disc sprites remain in assets/art/gemini-world-1/ but are not used.
+  The lantern is meant to echo Psalm 119:105 (KJV: "Thy word is a lamp unto my feet, and a light unto my path"); verify the wording before using it in any player-facing text.
+
+World 1 unified map plates (2026-11-09): the layered collage (separate sky, hills, path, foreground and sprites) never looked like one hand, so the map now uses ONE painting per layout.
+  Generated from text prompts (no reference images) in the Gemini app, picker "3.1 Pro": a "started" plate and a "completed" plate (garden in bloom, lantern lit, Bible open, doorway glowing) for portrait and landscape,
+  the completed versions requested in the same chat as the started ones so the scene stays identical.
+  Sources: assets/art/gemini-world-1/plate-{portrait,landscape}-{early,complete}-source.jpeg (1536x2752 and 2752x1536); runtime WebP: assets/art/world-1-plates/ (portrait 1116x2000, landscape 1400x781).
+  Used by js/world-1-unified-plate-scene.js and css/world-1-unified-plate.css; the completed plate is revealed around each landmark as its lesson is finished. The welcome, chapter-intro and chapter-complete backdrops use the started portrait/landscape plate.
+  One landscape source file was copied from the Claude app's staging file before it was renamed. The earlier layered set (assets/art/world-1-layered, js/world-1-layered-environment-scene.js) remains in the repository but is no longer used.
+
+World 1 map plates, second version (2026-11-09): the first unified plates (soft pastel look) were judged too washed out, too storybook and weak as a game map, so they were replaced with a vibrant "premium mobile-game environment" direction
+  (saturated colour, clean outlines, cel shading, three depth planes, golden-hour light, and five stone plazas along the path where the stop buttons sit, each beside its landmark).
+  Generated from text prompts in the Gemini app, picker "3.1 Pro": portrait started + portrait completed (completed requested in the same chat to keep the scene identical), and the landscape started plate.
+  Sources: assets/art/gemini-world-1/plate2-{portrait-early,portrait-complete,landscape-early}-source.jpeg; runtime WebP in assets/art/world-1-plates/. The first soft version is archived in assets/art/world-1-plates/soft-first-version/.
+  PENDING: the landscape COMPLETED plate. Gemini's image limit was reached before it could be generated (resets 11:42 PM, 2026-11-09). Until then assets/art/world-1-plates/landscape-complete-1400.webp is a copy of the started plate, so on desktop the landmarks do not visibly change with progress.
+  NOT YET VISUALLY CHECKED: the new plates and marker positions were verified through the page (assets load, stop positions, reveal states) but not by screenshot, because the browser pane window was minimized.
+
+World 1 map, landscape COMPLETED plate (2026-11-10)
+  Generated in the Gemini app, picker "3.1 Pro" (model id not displayed), by retrying the completed-landscape request in the same chat as the landscape started plate so the scene matches. Text prompt only, no reference image.
+  Source: assets/art/gemini-world-1/plate2-landscape-complete-source.jpeg (2752x1536); runtime WebP: assets/art/world-1-plates/landscape-complete-1400.webp (1400x781). Replaces the placeholder copy noted above; the pending item is resolved.
+  Inspected at preview size against the started plate: composition, path, plazas and river match; only the doorway glow, garden bloom, lit lantern and open Bible changed.
+
+Archived unused art (2026-11-10)
+  The layered World 1 environment (assets/art/world-1-layered sprites and hills, js/world-1-layered-environment-scene.js, css/world-1-layered-environment.css, js/world-1-environment-art-and-effects.js) is no longer used by the game. It was moved, unchanged, to ../word-of-life-archive-unused-art/ outside the app folder. Its provenance entries above still apply to those files.
+
+World 1 collectible bookplate (2026-11-10)
+  Generated in the Gemini app, picker "3.1 Pro" (model id not displayed), in the same chat as the World 1 map plates to keep the style. Text prompt only, no reference image: an open Bible with a gold cross on a mossy stone pillar, a sprout beside it, the glowing stone doorway behind, no text.
+  Source: assets/art/gemini-world-1/bookplate-world-1-source.jpeg (2400x1792); runtime WebP: assets/art/world-1-bookplate/bookplate-440.webp and bookplate-800.webp. Replaces the hand-coded SVG sunrise badge in bookplateArt().
+  Inspected at preview size: no readable text (page lines are decorative scribbles), outlines and light match the map plates.
+
+Garden visitor animals (2026-11-10)
+  Generated in the Gemini app, new chat, header shows "Pro" (exact model id not displayed), one text prompt for a 3x2 sheet of six cartoon animal portraits (rabbit, frog, chick, owl, parrot, duck) on cream, no text, no reference image.
+  Source sheet: assets/art/gemini-world-1/garden-animals-sheet-source.jpeg (2528x1696). Cropped locally to six 256x256 PNGs: assets/animals/{rabbit,frog,chick,owl,parrot,duck}.png.
+  Replaces the earlier Kenney animal icons, moved unchanged to ../word-of-life-archive-unused-art/animals-kenney/ (their Kenney CC0 entry above still applies to those files).
+  Inspected at preview size: six consistent faces, no text.
+
+Achievement medals (2026-11-10)
+  Generated in the Gemini app, new chat, header shows "Pro" (exact model id not displayed), one text prompt for a 3x3 sheet of nine round gold-rimmed medals with a different emblem each (sprout, compass, water drop with dove, butterfly, lightbulb, open book, lantern, sunrise, Bible with cross), no text, no reference image.
+  Source sheet: assets/art/gemini-world-1/achievement-medals-sheet-source.jpeg (2400x1792). Cut out locally (background flood-keyed to transparent) to assets/medals/painted/{first,five,spirit,creature,buster,keeper,remember,daily,world1}.png, up to 360 px tall.
+  Replaces the Kenney flat_medal1-6.png images in the achievement list and Chapter complete. Those files remain in assets/medals unused; their Kenney CC0 entry above still applies.
+  Inspected at preview size: nine distinct, consistent medals, no text.
+
+Scripture text added to World 1 Lesson 3 (2026-11-10)
+  KJV text for Rom 6:23, Eph 1:3, Eph 1:22, 1 Jn 3:2, 1 Jn 5:11-13 (and checked 1 Cor 6:17, Phil 3:20, 2 Cor 5:17, Rom 6:11, Jn 1:13) was read from the public-domain KJV through the bible-api.com service and copied unchanged. Benefit wording follows the private teaching manual. Pastoral review is still required before publishing.
+
+World 2 "The Holy Spirit" art (2026-11-10)
+  Generated in the Gemini app, picker "Pro" (exact model id not displayed), text prompts only, in the same chat as the World 1 map plates ("Unified Game-Map Scene Repaint") so the style matches. No reference image.
+  Sources in assets/art/gemini-world-2/: plate-portrait-early-source.jpeg and plate-portrait-complete-source.jpeg (1536x2752), plate-landscape-early-source.jpeg and plate-landscape-complete-source.jpeg (2752x1536), bookplate-world-2-source.jpeg (2400x1792, second attempt after the first had a baked-in checkerboard background and faded edges), medal-world-2-source.jpeg (2400x1792, flat cream background).
+  Runtime files: assets/art/world-2-plates/ (portrait 1536 px; landscape 2752 px and 1400 px, early and complete), assets/art/world-2-bookplate/ (440 and 880 px wide), assets/medals/painted/world2.png (cut out locally, 395x640).
+  Known flaw: the portrait completed plate shows a second gate on the right of the path; not yet masked. Not yet installed in the game.
+
+World 2 and World 2 garden art, later additions (2026-11-10)
+  Same Gemini chat and method as the World 2 art above, picker "Pro" (exact model id not displayed), text prompts only.
+  Garden plate: assets/art/gemini-world-2/garden-plate-source.jpeg (2528x1696), cropped to 3:2 and saved as assets/art/world-2-growth-garden/garden-plate.webp (2528 px) and garden-plate-small.webp (768 px).
+  Lesson medals: assets/art/gemini-world-2/achievement-medals-world-2-sheet-source.jpeg (2400x1792, 2x2 sheet: doorway with light, round stone table with candle, seven kites, bell in a stone arch), cut out locally to assets/medals/painted/{inus,fellow,seven,tongues}.png (about 460x640). The World 2 completion medal is assets/medals/painted/world2.png from the earlier entry.
+  Inspected at preview size: no text, consistent with the nine World 1 achievement medals.
+

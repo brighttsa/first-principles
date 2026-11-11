@@ -1,0 +1,140 @@
+/* Puzzle pieces, slots, blanks, word search grid, match ribbons and sort cards. */
+.clue { font: 600 var(--fs-m)/1.3 var(--font-serif); text-align: center; margin-bottom: var(--s5); }
+.slots, .tray { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: var(--s5); min-height: var(--tile); }
+.slot { width: var(--tile); height: calc(var(--tile) * 1.12); border-radius: 14px; border: 3px dashed var(--paper-edge); background: rgba(255, 255, 255, .5); padding: 0; display: grid; place-items: center; }
+.slot.locked { border-style: solid; border-color: var(--leaf); }
+.slot.ok { border-color: var(--leaf); background: rgba(120, 185, 106, .25); }
+.tile {
+  width: var(--tile); height: calc(var(--tile) * 1.12); border-radius: 14px; border: 2px solid #E4D3A8; padding: 0;
+  background: linear-gradient(#FFFDF4, #FFF1CC); color: var(--ink);
+  font: 700 calc(var(--tile) * .56)/1 var(--font-display); box-shadow: var(--shadow-tile);
+  touch-action: none; user-select: none; display: grid; place-items: center;
+  transition: transform .2s var(--ease-spring), box-shadow .2s;
+}
+.tile:active, .tile.dragging { transform: translateY(2px) scale(.94); box-shadow: 0 1px 0 #D9C79B; }
+.tile.dragging { position: relative; z-index: 30; transform: scale(1.1) rotate(-3deg); box-shadow: 0 14px 24px rgba(32, 61, 54, .3); transition: none; }
+.slot .tile { box-shadow: 0 2px 0 #D9C79B; }
+[data-level="child"] { --tile: clamp(54px, 15vw, 72px); }
+.kbd-tip { text-align: center; font-size: var(--fs-s); color: var(--ink-soft); }
+
+/* Word Garden keeps letter tracing distinct from the existing slot-building puzzle. */
+.word-garden { display: grid; gap: var(--s3); max-width: 620px; margin-inline: auto; }
+.wg-heading { text-align: center; }
+.wg-heading h2 { margin: 0 0 var(--s2); color: var(--navy); font: 700 var(--fs-l)/1.1 var(--font-display); }
+.wg-objective, .wg-clue { margin: var(--s2) 0 0; color: var(--ink-soft); line-height: 1.45; }
+.wg-clue { color: var(--navy); font-weight: 700; }
+.wg-targets { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; min-height: 46px; }
+.wg-target { display: inline-grid; place-items: center; min-width: 52px; min-height: 42px; padding: 7px 12px; border: 2px solid var(--paper-edge); border-radius: 14px; background: #fff; color: var(--navy); font: 800 var(--fs-s)/1 var(--font-display); letter-spacing: .08em; }
+.wg-target.found { border-color: var(--state-success-edge); background: var(--state-success-bg); color: var(--state-success-text); letter-spacing: .02em; }
+.wg-bonus-status { min-height: 1.25em; margin: -4px 0 0; color: var(--lagoon-deep); text-align: center; font: 700 var(--fs-s)/1.3 var(--font-sans); }
+.wg-board { position: relative; max-width: 460px; width: 100%; margin-inline: auto; }
+.wg-links { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.wg-links polyline { fill: none; stroke: var(--lagoon-deep); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; opacity: .65; vector-effect: non-scaling-stroke; }
+.wg-rack { position: relative; z-index: 1; width: min(100%, 420px); aspect-ratio: 1; margin-inline: auto; padding: 0; touch-action: none; }
+.wg-letter { position: absolute; left: var(--x); top: var(--y); display: grid; place-items: center; width: 52px; height: 56px; padding: 0; transform: translate(-50%, -50%); border: 2px solid var(--tile-edge); border-radius: 18px; background: var(--tile-face); color: var(--navy); font: 800 clamp(1.25rem, 5vw, 1.65rem)/1 var(--font-display); box-shadow: var(--shadow-tile); transition: transform 120ms var(--ease-out), background-color 120ms ease, box-shadow 120ms ease; }
+.wg-letter[aria-pressed="true"] { transform: translate(-50%, calc(-50% + 2px)); border-color: #956012; background: #FFE071; color: var(--navy-strong); box-shadow: 0 1px 0 #A06A13; }
+.wg-current { min-height: 1.5em; margin: 0; color: var(--lagoon-deep); text-align: center; font: 800 var(--fs-m)/1.3 var(--font-display); letter-spacing: .08em; overflow-wrap: anywhere; }
+.wg-actions, .wg-choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.wg-actions .btn { min-height: 48px; }
+.wg-discovery, .wg-question { padding: var(--s3); border: 2px solid var(--paper-edge); border-radius: var(--r-md); background: #fffdf7; }
+.wg-discovery h3, .wg-question h3 { margin: 0 0 var(--s2); color: var(--navy); font: 700 var(--fs-m)/1.2 var(--font-display); }
+.wg-discovery p { color: var(--ink-soft); line-height: 1.5; }
+.wg-choices { display: grid; grid-template-columns: 1fr; }
+.wg-choice { min-height: 50px; padding: 12px 16px; border: 2px solid var(--paper-edge); border-radius: 14px; background: #fff; color: var(--navy); font: 700 var(--fs-b)/1.35 var(--font-sans); text-align: start; }
+.wg-choice.correct { border-color: var(--state-success-edge); background: var(--state-success-bg); color: var(--state-success-text); }
+.wg-choice.incorrect { border-color: var(--state-error-edge); background: var(--state-error-bg); color: var(--state-error-text); }
+.wg-answer-feedback { min-height: 1.4em; margin: var(--s2) 0 0; color: var(--ink-soft); line-height: 1.45; }
+@media (max-width: 360px) { .wg-letter { width: 46px; height: 50px; } }
+@media (prefers-reduced-motion: reduce) { .wg-letter { transition-duration: .01ms; } }
+
+/* Scripture completion */
+.verse-line { font: 500 var(--fs-m)/2.2 var(--font-serif); margin-bottom: var(--s5); }
+.blank { display: inline-flex; align-items: center; justify-content: center; min-width: 5.5ch; min-height: 44px; padding: 0 12px; margin: 0 2px; border: 0; border-bottom: 3px dashed var(--lagoon-deep); background: rgba(55, 185, 176, .14); border-radius: 10px 10px 0 0; font: 600 var(--fs-b) var(--font-display); vertical-align: middle; }
+.blank.filled { border-bottom-style: solid; background: var(--paper-shade); }
+.blank.ok { background: rgba(120, 185, 106, .35); border-color: var(--leaf-deep); }
+.blank.bad { background: rgba(244, 119, 104, .3); border-color: var(--coral-deep); animation: shake .4s; }
+.bank { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+
+/* Word search */
+.ws { display: grid; gap: 3px; max-width: 400px; margin: 0 auto var(--s4); touch-action: none; user-select: none; }
+.ws button { aspect-ratio: 1; border: 0; border-radius: 8px; background: var(--paper-shade); font: 700 calc(var(--tile) * .42)/1 var(--font-display); padding: 0; color: var(--ink); transition: background .2s, transform .15s var(--ease-spring); }
+.ws button.start { background: var(--sun); transform: scale(1.12); }
+.ws button.found { background: var(--leaf-deep); color: #fff; }
+.ws button.found.f1 { background: var(--lagoon-deep); color: #fff; } .ws button.found.f2 { background: var(--coral-deep); color: #fff; }
+.ws button.found.f3 { background: var(--lavender-deep); color: #fff; } .ws button.found.f4 { background: var(--sun); color: var(--navy-strong); }
+.ws button.hint { animation: pulse .7s 3; }
+.words { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.words .pill.found { text-decoration: line-through; background: rgba(120, 185, 106, .4); }
+
+/* Concept matching with ribbons */
+.match { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 56px; }
+.match .col { display: flex; flex-direction: column; gap: 12px; }
+.match .chip { justify-content: center; text-align: center; border-radius: 18px; line-height: 1.25; min-height: 58px; font-size: var(--fs-b); }
+.match .chip.m0 { background: #BFE9E5; } .match .chip.m1 { background: #FAD0CA; }
+.match .chip.m2 { background: #DDD2F4; } .match .chip.m3 { background: #FCE9A8; }
+.match svg.ribbons { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.match svg path { fill: none; stroke-width: 7; stroke-linecap: round; opacity: .85; }
+
+/* Truth or misconception */
+.sortcard { min-height: 150px; display: grid; place-items: center; text-align: center; font: 600 var(--fs-m)/1.35 var(--font-serif); padding: var(--s5); margin-bottom: var(--s4); }
+.sortbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.sortbtns .btn { flex-direction: column; gap: 2px; padding: 12px; }
+.sortbtns small { font: 400 var(--fs-s) var(--font-sans); }
+.explain { margin-top: var(--s4); padding: var(--s4); border-radius: var(--r-md); background: var(--paper-shade); border-left: 6px solid var(--lagoon); }
+.explain.bad { border-color: var(--state-error-edge); } .explain.good { border-color: var(--state-success-edge); }
+
+/* Quiz */
+.opts { display: grid; gap: 10px; margin: var(--s4) 0; }
+.opt { text-align: left; min-height: 56px; padding: 12px 18px; border-radius: 18px; background: var(--paper); border: 2px solid var(--paper-edge); box-shadow: 0 3px 0 var(--paper-edge); }
+.opt.right { background: var(--state-success-bg); border-color: var(--state-success-edge); color: var(--state-success-text); }
+.opt.wrong { background: var(--state-error-bg); border-color: var(--state-error-edge); color: var(--state-error-text); }
+
+.ws button { min-inline-size: 0; min-block-size: 24px; }
+.ws button:focus-visible { position: relative; z-index: 1; outline-offset: 0; }
+.ws button.hint { box-shadow: inset 0 0 0 3px var(--lagoon-deep); }
+
+/* Scripture Trails turn a verse phrase into a short path before the reading check. */
+.scripture-trail { display: grid; gap: var(--s3); max-width: 680px; margin-inline: auto; }
+.scripture-trail header { text-align: center; }
+.scripture-trail header h2 { margin: var(--s1) 0; color: var(--navy); font: 700 var(--fs-l)/1.15 var(--font-display); }
+.scripture-trail header > p:last-child { color: var(--ink-soft); line-height: 1.45; }
+.st-path { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; min-height: 58px; margin: 0; padding: 10px 4px; list-style: none; border-bottom: 3px solid #b6dfd1; }
+.st-stone, .st-word { min-height: 48px; padding: 9px 14px; border: 2px solid var(--tile-edge); border-radius: 18px; background: var(--tile-face); color: var(--navy); font: 800 var(--fs-b)/1.2 var(--font-display); box-shadow: var(--shadow-tile); }
+.st-stone { background: var(--selection-bg); border-color: var(--selection-edge); }
+.st-bank, .st-choices { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; }
+.st-feedback { min-height: 1.5em; margin: 0; color: var(--ink-soft); text-align: center; line-height: 1.45; }
+.st-reveal { display: grid; gap: var(--s2); padding-top: var(--s2); }
+.st-reveal > h3, .st-question > h3 { margin: 0; color: var(--navy); font: 700 var(--fs-m)/1.25 var(--font-display); }
+.st-question { display: grid; gap: var(--s2); padding: var(--s3); border: 2px solid var(--paper-edge); border-radius: var(--r-md); background: #fffdf7; }
+.st-choices { display: grid; grid-template-columns: 1fr; }
+.st-choice { min-height: 50px; padding: 12px 15px; border: 2px solid var(--paper-edge); border-radius: 14px; background: #fff; color: var(--navy); font: 700 var(--fs-b)/1.35 var(--font-sans); text-align: start; }
+.st-choice.correct { border-color: var(--state-success-edge); background: var(--state-success-bg); color: var(--state-success-text); }
+@media (max-width: 480px) { .st-path { gap: 8px; } .st-stone, .st-word { min-height: 46px; padding-inline: 11px; } }
+
+/* Hidden Word Hunt uses the approved World 1 painting; only the actual landmarks receive live controls. */
+.word-hunt { display: grid; gap: var(--s3); max-width: 760px; margin-inline: auto; }
+.wh-heading { text-align: center; }
+.wh-heading h2 { margin: 0 0 var(--s1); color: var(--navy); font: 700 var(--fs-l)/1.15 var(--font-display); }
+.wh-clue { min-height: 1.5em; margin: 0; color: var(--navy); font-weight: 700; line-height: 1.4; }
+.wh-scene { position: relative; isolation: isolate; width: 100%; aspect-ratio: 1536 / 2752; overflow: hidden; border-radius: var(--r-lg); background: #9dd5ec; box-shadow: 0 5px 0 rgba(37, 83, 111, .18); }
+.wh-scene > .wp-hero-hd { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none; margin: 0; border-radius: inherit; }
+.wh-targets { position: absolute; inset: 0; z-index: 2; }
+.wh-hotspot { position: absolute; left: var(--portrait-x); top: var(--portrait-y); width: max(44px, var(--portrait-w)); height: max(44px, var(--portrait-h)); transform: translate(-50%, -50%); display: grid; place-items: center; padding: 3px; border: 2px solid transparent; border-radius: 24px; background: transparent; color: transparent; font: 800 clamp(.82rem, 3vw, 1.3rem)/1 var(--font-display); }
+.wh-hotspot:hover { background: rgba(255, 255, 255, .16); }
+.wh-hotspot:focus-visible { z-index: 1; outline: 3px solid #fff; outline-offset: -6px; box-shadow: inset 0 0 0 6px var(--navy); }
+.wh-hotspot.hint { border-color: rgba(255, 210, 63, .95); background: rgba(255, 210, 63, .24); }
+.wh-hotspot.found { border-color: #fff; background: rgba(222, 247, 226, .96); color: var(--navy); box-shadow: 0 3px 0 rgba(35, 52, 106, .24); }
+.wh-progress { min-height: 1.4em; margin: 0; color: var(--lagoon-deep); text-align: center; font-weight: 700; }
+.wh-question { display: grid; gap: var(--s3); padding: var(--s3); border: 2px solid var(--paper-edge); border-radius: var(--r-md); background: #fffdf7; }
+.wh-question h3 { margin: 0; color: var(--navy); font: 700 var(--fs-m)/1.25 var(--font-display); }
+.wh-choices { display: grid; gap: 9px; }
+.wh-choice { min-height: 50px; padding: 12px 15px; border: 2px solid var(--paper-edge); border-radius: 14px; background: #fff; color: var(--navy); font: 700 var(--fs-b)/1.35 var(--font-sans); text-align: start; }
+.wh-choice.correct { border-color: var(--state-success-edge); background: var(--state-success-bg); color: var(--state-success-text); }
+@media (min-width: 700px) and (orientation: landscape) {
+  .wh-scene { aspect-ratio: 2752 / 1536; }
+  .wh-hotspot { left: var(--wide-x); top: var(--wide-y); width: max(48px, var(--wide-w)); height: max(48px, var(--wide-h)); }
+}
+@media (min-width: 900px) and (max-width: 1199px) {
+  .lesson:has(.word-hunt) { grid-template-columns: minmax(0, 1fr); max-width: 840px; }
+}
+@media (prefers-reduced-motion: reduce) { .wh-hotspot, .wh-choice { transition-duration: .01ms; animation: none; } }

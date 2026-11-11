@@ -1,0 +1,33 @@
+/* Ambient life for the World 1 map. Positions are percentages of the painted frame (portrait, then landscape ≥768px).
+   The map's existing pause rule ([data-world-paused] *) stops every animation here, and the motes hide when paused. */
+.wa-ambient { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.wa-rays { position: absolute; inset: -10% -10% 0 -10%; mix-blend-mode: soft-light; opacity: .5; transform-origin: 0 0;
+  background: linear-gradient(112deg, transparent 8%, rgba(255, 244, 190, .75) 18%, transparent 28%, rgba(255, 244, 190, .55) 38%, transparent 50%, rgba(255, 244, 190, .4) 60%, transparent 72%);
+  animation: wa-rays 12s ease-in-out infinite; }
+.wa-mote { position: absolute; left: var(--x); top: var(--y); width: 6px; height: 6px; border-radius: 50%;
+  background: radial-gradient(circle, #fff9c8 0%, rgba(255, 244, 170, .6) 45%, transparent 72%); opacity: 0;
+  animation: wa-drift 16s ease-in-out infinite; animation-delay: var(--d); }
+.wa-glint { position: absolute; left: var(--gx); top: var(--gy); width: clamp(8px, 1.6vw, 16px); aspect-ratio: 1; opacity: 0;
+  background: #fffdf0; -webkit-mask: url(../assets/particles/spark_01.png) center / contain no-repeat; mask: url(../assets/particles/spark_01.png) center / contain no-repeat;
+  animation: wa-glint 4.2s ease-in-out infinite; }
+.wa-glint[data-g="1"] { --gx: 30%; --gy: 22%; }
+.wa-glint[data-g="2"] { --gx: 56%; --gy: 24%; animation-delay: -1.3s; }
+.wa-glint[data-g="3"] { --gx: 22%; --gy: 27%; animation-delay: -2.4s; }
+.wa-glint[data-g="4"] { --gx: 70%; --gy: 21%; animation-delay: -3.3s; }
+.wa-lantern { position: absolute; left: 68.5%; top: 64.5%; width: 12%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 214, 120, .85) 0%, rgba(255, 190, 80, .35) 35%, transparent 68%); mix-blend-mode: screen;
+  animation: wa-flicker 3.1s steps(1, end) infinite; }
+@keyframes wa-rays { 0%, 100% { opacity: .35; transform: translateX(-1.5%); } 50% { opacity: .62; transform: translateX(1.5%); } }
+@keyframes wa-drift { 0% { opacity: 0; transform: translate(0, 0); } 15% { opacity: .85; } 50% { transform: translate(14px, -46px); }
+  85% { opacity: .7; } 100% { opacity: 0; transform: translate(-8px, -96px); } }
+@keyframes wa-glint { 0%, 100% { opacity: 0; transform: scale(.4); } 45% { opacity: .9; transform: scale(1); } 60% { opacity: .2; transform: scale(.7); } }
+@keyframes wa-flicker { 0% { opacity: .8; } 12% { opacity: .62; } 27% { opacity: .9; } 44% { opacity: .7; } 61% { opacity: .95; } 78% { opacity: .66; } }
+[data-world-paused] .wa-mote, [data-world-paused] .wa-glint { opacity: 0 !important; }
+[data-world-paused] .wa-lantern { opacity: .8; }
+@media (min-width: 768px) {
+  .wa-lantern { left: 69.6%; top: 32%; width: 6.5%; }
+  .wa-glint[data-g="1"] { --gx: 22%; --gy: 72%; }
+  .wa-glint[data-g="2"] { --gx: 16%; --gy: 77%; animation-delay: -1.3s; }
+  .wa-glint[data-g="3"] { --gx: 33%; --gy: 66%; animation-delay: -2.4s; }
+  .wa-glint[data-g="4"] { --gx: 44%; --gy: 50%; animation-delay: -3.3s; }
+}

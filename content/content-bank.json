@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "title": "First Principles: The Wonder Journal - Content Bank",
+    "source": "Milk for the New Convert (Love Economy Church, 2019), pastors' edition",
+    "scriptureText": "KJV (public domain). Verse text is pulled at build time from a KJV file; only references are stored here.",
+    "voice": "Cards say 'Love Economy Church teaches...' and use the manual's wording. Nothing is added without pastoral approval.",
+    "excluded": ["Tithing section (all pages)", "Why Non-Tithers Become Poor", "Role #3 'pay your tithes'", "Role #4 'give your offerings' (offerings left out with tithing; confirm)"],
+    "reviewStatus": "DRAFT - pending pastoral review",
+    "puzzleTypes": ["word-build", "scripture-complete", "word-search", "match", "misconception-sort", "detective", "apply-scenario"]
+  },
+  "worlds": [
+    {
+      "id": 1, "name": "Born Again", "palette": "sun", "motif": "seed, sunrise, open door",
+      "points": [
+        {"id": "w1-p1", "ref": ["Jn 3:3"], "manual": "To be born again means to be born from above (heaven). Greek: gennao anothen.",
+         "puzzles": [{"type": "word-build", "answer": "ANOTHEN", "clue": "Greek word meaning 'from above'"}, {"type": "scripture-complete", "ref": "Jn 3:3", "blank": "born again / from above (final wording set at build from KJV)"}]},
+        {"id": "w1-p2", "ref": ["Jn 3:5-6", "Eph 5:26", "Jn 15:3", "1 Pet 1:23", "Tit 3:5"], "manual": "Born of water and the Spirit. Water is the word of God; the Spirit is the Spirit.",
+         "puzzles": [{"type": "match", "pairs": [["Water", "The word of God"], ["Spirit", "The Spirit (Tit 3:5)"]]}]},
+        {"id": "w1-p3", "ref": ["Jn 3:3", "Jn 3:5", "Phil 3:20", "1 Pet 2:2", "Tit 3:5", "1 Cor 6:17"], "manual": "Implications: we can appreciate spiritual things; we are citizens of the Kingdom of God; we need the Word daily to grow; our spirit is joined to God's Spirit and we have God's DNA in us.",
+         "puzzles": [{"type": "match", "pairs": [["Citizens of", "The Kingdom of God"], ["Need daily", "The Word of God"], ["Spirit joined to", "God's Spirit"]]}]},
+        {"id": "w1-p4", "ref": ["Rom 10:9-10"], "manual": "How to be born again: agree you are a sinner; believe and confess the Lordship of Jesus Christ.",
+         "puzzles": [{"type": "scripture-complete", "ref": "Rom 10:9-10", "blank": "confess / believe"}, {"type": "word-build", "answer": "LORDSHIP", "clue": "What we confess about Jesus Christ"}]},
+        {"id": "w1-p5", "ref": ["2 Cor 5:17", "Rom 6:11", "Jn 1:13", "Eph 1:3", "Jn 3:16", "1 Jn 5:11-13", "2 Pet 1:4", "1 Jn 3:2"], "manual": "Benefits of being born again, including: a new creature; dead to sin and alive to God; legitimate children of God; access to God's promises; eternal life, the very life of God; the hope of resurrection.",
+         "puzzles": [{"type": "word-search", "words": ["CREATURE", "ETERNAL", "PROMISES", "RESURRECTION", "CHILDREN"]}, {"type": "detective", "task": "Find where Jn 1:13 lists three things we are 'not born of'.", "refs": ["Jn 1:13"]}]},
+        {"id": "w1-p6", "ref": ["Jn 3:3-6"], "manual": "Misconceptions: it is not water baptism; not speaking in tongues; not being sinless; not being born in a church; not befriending a man of God; not going to church on Sundays.",
+         "puzzles": [{"type": "misconception-sort", "false": ["Being baptized in water", "Speaking in tongues", "Being sinless first", "Being born in a church", "Befriending a man of God", "Going to church on Sundays"], "true": ["Born from above", "Born of water (word) and Spirit", "Believing and confessing Jesus as Lord"]}]}
+      ]
+    },
+    {
+      "id": 2, "name": "The Holy Spirit", "palette": "turquoise", "motif": "wind, kites, leaves in the air",
+      "points": [
+        {"id": "w2-p1", "ref": ["Jn 14:16-18", "Jn 16:13"], "manual": "The Holy Spirit is Jesus in us. 'Another Comforter' is allos parakletos: allos means one of the same kind; heteros means another which is different. He never leaves us. He is the Spirit of truth who guides us into all spiritual realities.",
+         "puzzles": [{"type": "word-build", "answer": "ALLOS", "clue": "Greek: 'another of the same kind'"}, {"type": "word-build", "answer": "HETEROS", "clue": "Greek: 'another which is different'"}, {"type": "match", "pairs": [["Allos", "Another of the same kind"], ["Heteros", "Another which is different"]]}]},
+        {"id": "w2-p2", "ref": ["2 Cor 13:14", "Jn 14:16"], "manual": "Fellowship (Greek: koinonia): association, community, joint participation, intimacy.",
+         "puzzles": [{"type": "word-build", "answer": "KOINONIA", "clue": "Greek for fellowship"}]},
+        {"id": "w2-p3", "ref": ["2 Cor 13:14", "Jn 14:16"], "manual": "In fellowship we discover Him as Comforter, Counselor, Helper, Intercessor, Advocate, Strengthener and Standby.",
+         "puzzles": [{"type": "word-search", "words": ["COMFORTER", "COUNSELOR", "HELPER", "INTERCESSOR", "ADVOCATE", "STRENGTHENER", "STANDBY"]}]},
+        {"id": "w2-p4", "ref": ["Isa 11:2"], "manual": "Seven-fold manifestation: Lord (dominion), Wisdom (counsel to overcome obstacles), Understanding (hope, inheritance, power), Counsel (direction), Might (extraordinary strength), Knowledge (revelation), Fear of the Lord (order, discipline, reverence).",
+         "puzzles": [{"type": "match", "pairs": [["Spirit of the Lord", "Dominion"], ["Wisdom", "Counsel from God's mind to overcome obstacles"], ["Understanding", "Knowing the hope, inheritance and power"], ["Counsel", "Direction for right decisions"], ["Might", "Extraordinary strength"], ["Knowledge", "Revelation about an issue"], ["Fear of the Lord", "Order, discipline, reverence"]]}]},
+        {"id": "w2-p5", "ref": ["1 Cor 14:14", "1 Cor 14:2", "Acts 2:4", "Acts 8:17", "Acts 19:6"], "manual": "Speaking in tongues: your spirit prays by the Holy Spirit's inspiration; you speak directly and privately to God; the Spirit gives utterance but you must speak yourself.",
+         "puzzles": [{"type": "scripture-complete", "ref": "Acts 2:4", "blank": "gave them utterance"}, {"type": "match", "pairs": [["The Holy Spirit", "Fills and gives utterance"], ["The believer", "Speaks themselves"]]}],
+         "note": "The manual's 'Practical: lead the new convert to speak in tongues' is a pastor action, not a game task."}
+      ]
+    },
+    {
+      "id": 3, "name": "Righteousness", "palette": "leaf", "motif": "orchard, clean stream, hung robes",
+      "points": [
+        {"id": "w3-p1", "ref": ["Rom 6:23", "Rom 5:12", "Jn 3:16", "Rom 3:25-26"], "manual": "Righteousness is God's inability to sit by and watch man perish. Sin has the consequence of death; God gave Jesus as the payment for sin.",
+         "puzzles": [{"type": "detective", "task": "Follow the chain: sin's consequence (Rom 6:23), who it applies to (Rom 5:12), God's payment (Jn 3:16).", "refs": ["Rom 6:23", "Rom 5:12", "Jn 3:16"]}]},
+        {"id": "w3-p2", "ref": ["Rom 4:5-8", "Rom 3:27", "Rom 5:17", "1 Cor 1:30"], "manual": "Righteousness is a free gift: absolute (righteous or sinner), not obtained by doing the law, free but not cheap, and Christ is the gift who becomes our righteousness.",
+         "puzzles": [{"type": "misconception-sort", "false": ["Earned by keeping the law", "You can have a little righteousness"], "true": ["A free gift from God", "Absolute: you either have it or you don't", "Christ is our righteousness"]}, {"type": "word-build", "answer": "RIGHTEOUSNESS", "clue": "The free gift of right standing"}]},
+        {"id": "w3-p3", "ref": ["2 Cor 5:21", "Rom 3:22-24", "Phil 3:9", "Rom 5:1-2"], "manual": "Right standing with God: confidence to stand before God; not more or less; we are as right as Jesus is; access because we believe and are united with Him; peace with God and unlimited access.",
+         "puzzles": [{"type": "scripture-complete", "ref": "2 Cor 5:21", "blank": "made the righteousness of God in him"}, {"type": "scripture-complete", "ref": "Rom 5:1", "blank": "peace with God"}]},
+        {"id": "w3-p4", "ref": ["Eph 1:20-21", "Mk 16:17", "Lk 10:17"], "manual": "Dominion over the devil: confidence that the devil is under our feet; authority to cast out devils; power to destroy the devil's works.",
+         "puzzles": [{"type": "match", "pairs": [["Eph 1:20-21", "The devil is under our feet"], ["Mk 16:17", "Authority to cast out devils"], ["Lk 10:17", "Power to destroy the devil's works"]]}]}
+      ]
+    },
+    {
+      "id": 4, "name": "You Are Not a Sinner", "palette": "coral", "motif": "open gate, lit path home",
+      "points": [
+        {"id": "w4-p1", "ref": ["Jn 8:44", "Heb 9:22", "Heb 10:11-14", "1 Jn 4:10"], "manual": "Sin is the nature of the devil, passed to Adam and all his descendants. A blood offering was needed; Jesus offered His blood not to cover sin but to remove sin.",
+         "puzzles": [{"type": "misconception-sort", "false": ["Jesus' blood only covers sin"], "true": ["Jesus' blood removes sin"]}]},
+        {"id": "w4-p2", "ref": ["Rom 6:4-6", "1 Jn 3:9"], "manual": "At new birth there is the death of the old man (the sinner) and the birth of the new man with the nature of God. The seed of God remains in him.",
+         "puzzles": [{"type": "scripture-complete", "ref": "1 Jn 3:9", "blank": "his seed remaineth"}, {"type": "word-build", "answer": "NATURE", "clue": "What is changed at new birth"}]},
+        {"id": "w4-p3", "ref": ["1 Jn 5:16-17", "Jn 3:16-18", "1 Jn 1:9"], "manual": "Two kinds of sin: sin unto death (not receiving Jesus as Lord and saviour; a nature; what makes a person a sinner) and sin not unto death (acts of sin that may beset a believer; does not make them a sinner).",
+         "puzzles": [{"type": "match", "pairs": [["Sin unto death", "Not receiving Jesus; a nature"], ["Sin not unto death", "Acts of sin; does not make a believer a sinner"]]}, {"type": "detective", "task": "Compare 1 Jn 5:16-17 and Jn 3:16-18. What is the sin unto death?", "refs": ["1 Jn 5:16-17", "Jn 3:16-18"]}]},
+        {"id": "w4-p4", "ref": ["Eph 4:32", "Col 2:13", "Heb 8:12", "1 Jn 1:9", "Gal 6:1"], "manual": "If you commit acts of sin: God does not condemn you, He has already forgiven you; confess it (admit it was wrong, a reason to repent, a clear conscience and fresh start); do not lash out at another believer who sins.",
+         "puzzles": [{"type": "apply-scenario", "scenario": "You slip up and feel ashamed.", "steps": ["Know God has already forgiven you", "Confess it", "Repent and take a fresh start"], "reflection": "What does it mean to you that God does not keep a record?"}, {"type": "word-build", "answer": "CONFESS", "clue": "A step after an act of sin (1 Jn 1:9)"}]}
+      ]
+    },
+    {
+      "id": 5, "name": "Soul Winning", "palette": "lavender", "motif": "crossroads, signposts, trail lanterns",
+      "points": [
+        {"id": "w5-p1", "ref": [], "manual": "Soul winning is the art and passion of getting a person born again and nurturing them to express the life of God through prayer, the teaching of God's word and the local assembly. Evangelism begins the process.",
+         "puzzles": [{"type": "word-build", "answer": "EVANGELISM", "clue": "The process of getting a person born again"}]},
+        {"id": "w5-p2", "ref": [], "manual": "Elements of growth: food, water, exercise, rest. Spiritual education: venue the church, teacher the pastor, syllabus the Bible.",
+         "puzzles": [{"type": "match", "pairs": [["Venue", "The Church"], ["Teacher", "The Pastor"], ["Syllabus", "The Bible"]]}, {"type": "word-search", "words": ["FOOD", "WATER", "EXERCISE", "REST"]}],
+         "gardenLink": "Growth Garden care actions: food, water, exercise, rest. Verses are 'remembered' not 'played'."},
+        {"id": "w5-p3", "ref": ["Ezek 3:17-18", "Jonah 1:2", "Jonah 3:3-4", "Mt 9:36-38", "1 Tim 2:4", "2 Pet 3:9", "Acts 10:1-6", "Acts 10:4-6", "2 Cor 5:14-20", "Rom 10:14", "Acts 8:30-31", "Jn 3:16", "Eph 1:5", "Eph 4:11-13", "Eph 4:15", "Rom 8:29"], "manual": "Importance of soul winning, including: it is the Father's heartbeat; angels cannot win souls; someone has to tell the good news; we were born to win souls; souls cannot win themselves; salvation is already purchased for all.",
+         "puzzles": [{"type": "detective", "task": "Who did God send to Cornelius, and who needed to tell him the good news? (Acts 10)", "refs": ["Acts 10:1-6"]}, {"type": "match", "pairs": [["Rom 10:14", "Souls cannot win themselves"], ["Acts 10:4-6", "Someone has to tell the good news"], ["1 Tim 2:4", "The Father's heartbeat"]]}]},
+        {"id": "w5-p4", "ref": [], "manual": "Everyday opportunities: bus, tro-tro, taxi, queues, workplace, lunch break, hostel, roommate, using 'there are 2 kinds of...'.",
+         "puzzles": [{"type": "apply-scenario", "scenario": "You are sitting next to someone on a tro-tro.", "steps": ["Greet and start a conversation", "Ask about 'two kinds of...'", "Share the gospel simply"], "reflection": "Who is one person you could talk to this week?"}],
+         "note": "Wording of the 'two kinds of' opener needs church input."}
+      ]
+    },
+    {
+      "id": 6, "name": "Church Commitment", "palette": "cream-gold", "motif": "village around one table",
+      "points": [
+        {"id": "w6-p1", "ref": ["1 Cor 4:2", "Psa 92:12-13", "Rom 12:6-8", "1 Thess 5:12-13", "2 Chr 20:20", "Heb 13:17", "1 Thess 5:25", "2 Thess 3:1", "Heb 13:18", "Jn 15:16", "Mt 6:33"], "manual": "Your role as a church member: attend services faithfully; be a stable member; make your talents and gifts available; know, respect, believe in, listen to, love and pray for your pastors; bear fruits in Christ. Church commitment results in spiritual growth.",
+         "puzzles": [{"type": "match", "pairs": [["1 Cor 4:2", "Faithful attendance"], ["Rom 12:6-8", "Talents and gifts made available"], ["1 Thess 5:25", "Pray for your pastors"], ["Jn 15:16", "Bear fruit"]]}]},
+        {"id": "w6-p2", "ref": ["Lk 4:18", "Mt 9:35", "Acts 2:46", "Acts 4:23", "1 Cor 15:33", "Acts 2:42", "Psa 119:63"], "manual": "Growth through fellowshipping: go to church regularly; join a smaller cell group; be close to other Christians. Jesus and the early Christians were regular church goers.",
+         "puzzles": [{"type": "detective", "task": "Find two early-church verses that show regular gathering.", "refs": ["Acts 2:46", "Acts 2:42"]}, {"type": "word-build", "answer": "FELLOWSHIP", "clue": "Growing together with other Christians"}]},
+        {"id": "w6-p3", "ref": ["1 Cor 11:1"], "manual": "Grow by following: copying, imitating, cloning, reproduction, becoming a double, catching up to the person's level.",
+         "puzzles": [{"type": "scripture-complete", "ref": "1 Cor 11:1", "blank": "followers of me, even as I also am of Christ"}],
+         "note": "Pastor-specific media lists (podcasts, videos) left out of puzzles; church may add as a 'Resources' card."},
+        {"id": "w6-p4", "ref": ["Hab 2:2", "Jer 30:2", "Heb 4:2", "Acts 13:48", "Psa 119:162", "Acts 17:11"], "manual": "Grow by responding to God's Word: take notes in church; speak in tongues; celebrate the Word; search the scriptures after church.",
+         "puzzles": [{"type": "match", "pairs": [["Hab 2:2", "Write it down"], ["Acts 17:11", "Search the scriptures"], ["Psa 119:162", "Celebrate the Word"]]}]},
+        {"id": "w6-p5", "ref": ["Acts 6:7", "Eph 4:16", "Eph 3:10"], "manual": "Grow by joining a department: you have a contribution only you can make; you express the wisdom of God uniquely; it builds you up; training happens there; departments may mentor skills such as graphic design and photography.",
+         "puzzles": [{"type": "apply-scenario", "scenario": "You have a gift (music, writing, design, cleaning, service).", "steps": ["Notice what you are good at", "Offer it to a department", "Learn and grow by serving"], "reflection": "What gift could you bring to the house of God?"}]}
+      ]
+    }
+  ],
+  "knowledgeChecks": {
+    "perWorld": "1 recall + 1 discern + 1 connect, drawn from that world's points",
+    "mastery": "Mixed review of all learned verses; wrong answers show the verse that settles it, never a bare red mark"
+  },
+  "openQuestions": [
+    "Offerings (Session 6 role #4) were removed alongside tithing: confirm.",
+    "Session 5 evangelism opener ('there are 2 kinds of...') wording: church to supply.",
+    "Pastor media list (podcasts, videos, 'Old Paths'): include as a Resources card or leave out?",
+    "Plain-language glosses for Seedling and Sprout tiers must be written or approved by the church."
+  ]
+}

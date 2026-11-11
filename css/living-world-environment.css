@@ -1,0 +1,124 @@
+/* The illustrated plate, independent scenery, fog, and controls have separate paint layers. */
+.living-world { isolation: isolate; view-timeline-name: --world-travel; }
+.world-scenery, .world-plane { position: absolute; inset: 0; pointer-events: none; }
+.world-scenery { z-index: 0; }
+.world-guide { position: absolute; top: 2.4%; right: 4%; z-index: 3; pointer-events: none; }
+/* A shared sprite canvas keeps Sprig registered while each frame swaps. */
+.sprig-guide-pose {
+  position: relative; display: block; width: clamp(58px, 16vw, 100px);
+  transform-origin: center bottom; animation: world-breathe 3.6s ease-in-out infinite;
+}
+.world-guide .mascot { display: block; width: 100%; animation: none; }
+.sprig-guide-frame {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: 0;
+  filter: drop-shadow(0 6px 0 rgba(36, 52, 106, .16));
+}
+.sprig-guide-pose[data-sprig-motion="blink"][data-ready] .mascot { animation: sprig-blink-base 5.6s step-end infinite; }
+.sprig-guide-pose[data-sprig-motion="blink"][data-ready] .sprig-guide-frame:nth-child(2) { animation: sprig-blink-half 5.6s step-end infinite; }
+.sprig-guide-pose[data-sprig-motion="blink"][data-ready] .sprig-guide-frame:nth-child(3) { animation: sprig-blink-closed 5.6s step-end infinite; }
+.sprig-guide-pose[data-sprig-motion="hop"][data-ready] { animation: world-hop .44s ease-in-out; }
+.sprig-guide-pose[data-sprig-motion="hop"][data-ready] .mascot { animation: sprig-hop-base .44s step-end; }
+.sprig-guide-pose[data-sprig-motion="hop"][data-ready] .sprig-guide-frame { animation: sprig-hop-frame .11s step-end; }
+.sprig-guide-pose[data-sprig-motion="hop"][data-ready] .sprig-guide-frame:nth-child(3) { animation-delay: .11s; }
+.sprig-guide-pose[data-sprig-motion="hop"][data-ready] .sprig-guide-frame:nth-child(4) { animation-delay: .22s; }
+.sprig-guide-pose[data-sprig-motion="hop"][data-ready] .sprig-guide-frame:nth-child(5) { animation-delay: .33s; }
+.living-world .map-head { right: max(22%, 84px); pointer-events: none; }
+.living-world .mh-text { min-width: 0; }
+.world-actions { display: flex; align-items: center; gap: 4px; margin: 4px -5px -7px; }
+.world-actions button {
+  pointer-events: auto; min-height: 44px; padding: 4px 8px; border: 0; border-radius: 10px;
+  background: transparent; color: var(--navy); font: 700 .82rem var(--font-display);
+}
+.world-actions button[aria-pressed="true"] { background: var(--paper-shade); }
+@media (hover: hover) and (pointer: fine) { .world-actions button:hover:not(:disabled) { background: var(--paper-shade); } }
+.world-actions button:disabled { opacity: .65; cursor: default; }
+.living-world .mnode.cur .mbtn { animation: none; }
+.living-world .mnode[data-active] .mbtn { transform: translateY(4px); }
+.living-world[data-mastered="true"] .mnode[data-kind="quiz"] .mbtn { color: var(--lavender-deep); }
+
+.world-prop {
+  position: absolute; left: var(--x); top: var(--y); width: var(--w); height: var(--h);
+  transform: translate(-50%, -50%); pointer-events: none;
+}
+/* Two registered bank windows keep reflections under the painted bridge. */
+.world-water-layer { position: absolute; inset: 0; clip-path: var(--water-clip, inset(0)); opacity: .76; }
+.world-prop[data-state="lock"] .world-water-layer { opacity: .43; }
+.world-prop[data-state="done"] .world-water-layer { opacity: .88; }
+.world-water-layer img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+.world-waterfall { --water-clip: polygon(7% 3%, 57% 2%, 75% 25%, 99% 97%, 37% 100%, 28% 66%, 16% 30%); }
+.world-waterfall img { opacity: .48; animation: world-water-fall 1.8s linear infinite; }
+.world-waterfall img:nth-child(2) { opacity: 0; animation-delay: -.9s; }
+.world-pool { --water-clip: ellipse(49% 47% at 50% 50%); }
+.world-pool img { opacity: .45; animation: world-water-ripple 3.6s var(--ease-out) infinite; }
+.world-pool img:nth-child(2) { opacity: 0; animation-delay: -1.8s; }
+.world-foam img { opacity: .66; transform-origin: 50% 85%; animation: world-water-foam 2.7s ease-in-out infinite; }
+.world-stream-before { --water-clip: polygon(1% 23%, 41% 7%, 94% 29%, 78% 62%, 72% 100%, 4% 94%); }
+.world-stream-after { --water-clip: polygon(43% 0, 68% 9%, 99% 21%, 87% 94%, 0 76%, 17% 52%); }
+.world-stream-before img, .world-stream-after img { opacity: .37; animation: world-water-stream 4.4s linear infinite; }
+.world-stream-after img { animation-delay: -2.1s; }
+@media (min-width: 1100px) {
+  .world-waterfall { --water-clip: polygon(0 0, 61% 0, 85% 22%, 100% 85%, 89% 100%, 28% 100%, 21% 55%, 9% 24%); }
+  .world-stream-before { --water-clip: polygon(0 11%, 54% 0, 68% 25%, 66% 46%, 66% 99%, 12% 83%); }
+  .world-stream-after { --water-clip: polygon(35% 0, 99% 28%, 78% 88%, 45% 99%, 16% 83%, 27% 48%); }
+}
+.world-light { display: block; width: 100%; height: 100%; }
+.world-light {
+  background: radial-gradient(ellipse at center, var(--world-light, #fff1a8) 0%, transparent 68%);
+  opacity: .35;
+}
+.world-daylight { --world-light: #ffedb0; }
+.world-daylight .world-light { animation: world-daylight 15s ease-in-out infinite; }
+.world-doorway[data-state="cur"] .world-light { animation: world-beacon 4.8s ease-in-out infinite; }
+.world-growth-plant img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center bottom; transform-origin: 50% 97%; }
+.world-growth-plant img:not([data-plant-stage="seed"]) { animation: world-plant-sway 5s ease-in-out infinite; }
+@keyframes world-plant-sway { 25% { transform: rotate(-1.6deg); } 75% { transform: rotate(1.6deg); } }
+.world-garden-bed { --world-light: #ecffad; }
+.world-discovery { --world-light: #ffe4b0; }
+.world-discovery[data-state="cur"] .world-light { animation: world-beacon 6s ease-in-out infinite; }
+.world-review[data-state="cur"] .world-light { animation: world-beacon 3.8s ease-in-out infinite; }
+.world-review[data-state="done"] .world-light { opacity: .68; }
+.world-plane[data-plane="props"] [data-state="lock"], .world-plane[data-plane="particles"] [data-state="lock"],
+.world-pollen[data-state="cur"] { display: none; }
+.world-glint {
+  position: absolute; left: 26%; top: 35%; width: clamp(7px, 1.2vw, 13px); aspect-ratio: 1;
+  background: #fff8b9; mask: url(../assets/particles/spark_01.png) center / contain no-repeat;
+  opacity: .68; animation: world-glint 5s ease-in-out infinite;
+}
+.world-glint:nth-child(2) { left: 68%; top: 52%; animation-duration: 6.8s; animation-delay: -2s; }
+.world-glint:nth-child(3) { left: 49%; top: 17%; animation-duration: 7.2s; animation-delay: -4s; }
+
+[data-world-paused] *, [data-world-offscreen] * { animation-play-state: paused !important; }
+@media (max-width: 360px) {
+  .living-world .map-head { right: 118px; }
+  .world-actions button { flex: 1; min-width: 0; }
+}
+@media (min-width: 1100px) {
+  .world-prop { left: var(--wide-x); top: var(--wide-y); width: var(--wide-w); height: var(--wide-h); }
+}
+@supports (animation-timeline: view()) {
+  .world-plane:is([data-plane="sky"], [data-plane="particles"]) {
+    animation: world-depth linear both; animation-timeline: --world-travel;
+    animation-range: entry 0% exit 100%; --world-depth: 6px;
+  }
+  .world-plane[data-plane="particles"] { --world-depth: 18px; }
+  [data-world-paused] .world-plane { animation: none; }
+}
+@keyframes world-depth { from { transform: translateY(calc(-1 * var(--world-depth))); } to { transform: translateY(var(--world-depth)); } }
+@keyframes world-breathe { 50% { transform: translateY(-2px) scaleY(1.025); } }
+@keyframes world-hop { 25%, 75% { transform: translateY(-3px); } 52% { transform: translateY(-9px); } }
+@keyframes sprig-blink-base { 0%, 96% { opacity: 1; } 91% { opacity: 0; } }
+@keyframes sprig-blink-half { 0%, 92.5%, 96% { opacity: 0; } 91%, 94.5% { opacity: 1; } }
+@keyframes sprig-blink-closed { 0%, 94.5% { opacity: 0; } 92.5% { opacity: 1; } }
+@keyframes sprig-hop-base { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sprig-hop-frame { from { opacity: 1; } to { opacity: 0; } }
+@keyframes world-water-fall {
+  0% { transform: translate(-4%, -13%); opacity: 0; }
+  42% { opacity: .68; }
+  100% { transform: translate(9%, 23%); opacity: 0; }
+}
+@keyframes world-water-ripple { from { transform: scale(.68); opacity: .57; } to { transform: scale(1.16); opacity: 0; } }
+@keyframes world-water-foam { 50% { transform: translateY(-4%) scale(1.03); opacity: .86; } }
+@keyframes world-water-stream { from { transform: translateX(-13%); opacity: 0; } 40% { opacity: .59; } to { transform: translateX(18%); opacity: 0; } }
+@keyframes world-daylight { 0%, 100% { opacity: .15; } 50% { opacity: .43; } }
+@keyframes world-beacon { 0%, 100% { opacity: .24; } 50% { opacity: .73; } }
+@keyframes world-glint { 0%, 100% { opacity: .12; } 42% { transform: translateY(-5px) scale(1.14); opacity: .84; } 75% { opacity: .24; } }

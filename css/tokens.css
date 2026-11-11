@@ -1,0 +1,42 @@
+/* Design tokens: vibrant cartoon game palette, type, spacing, motion. Legacy variable names are kept so every
+   component picks up the new look; values now map to the First Principles cartoon palette. */
+:root {
+  /* Core palette */
+  --green: #58CC65; --sun: #FFD23F; --sky: #42B9F5; --coral: #FF7185; --purple: #8661E8; --navy: #24346A; --white: #FFFDF7;
+  /* Legacy names -> new palette */
+  --leaf: var(--green); --lagoon: var(--sky); --lavender: var(--purple); --ivory: var(--white); --ink: var(--navy);
+  /* Accessible deep variants for text on white (>= 4.5:1) */
+  --leaf-deep: #1F7A33; --lagoon-deep: #0B6CA6; --lavender-deep: #5B3DC0; --coral-deep: #A3223A; --sun-deep: #8A5A00; --ink-soft: #4C5A8A;
+  --navy-strong: #101A46; --focus-ring: #101A46; --control-edge: #7584A6;
+  --state-success-bg: #E3F3D6; --state-success-edge: #1F7A33; --state-success-text: #1F7A33;
+  --state-error-bg: #FFE3E7; --state-error-edge: #A3223A; --state-error-text: #A3223A;
+  --state-info-bg: #EAF6FE; --state-info-edge: #0B6CA6; --state-info-text: #0B6CA6;
+  /* Surfaces */
+  --paper: #FFFFFF; --paper-edge: #D6E3F5; --paper-shade: #EBF3FE;
+  --green-edge: #3FA94D; --sun-edge: #E0A800; --sky-edge: #1E8FD0; --coral-edge: #E04A63; --purple-edge: #6544C9;
+  /* Radii and spacing (4pt grid) */
+  --r-sm: 12px; --r-md: 18px; --r-lg: 28px;
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  /* Type: bold rounded display + highly legible rounded sans */
+  --font-display: 'Fredoka', system-ui, sans-serif;
+  --font-serif: 'Nunito', system-ui, sans-serif;
+  --font-sans: 'Nunito', system-ui, -apple-system, sans-serif;
+  --text: 1;
+  --fs-s: max(.875rem, calc(.875rem * var(--text))); --fs-b: max(1rem, calc(1.0625rem * var(--text))); --fs-m: calc(1.25rem * var(--text));
+  --fs-l: calc(1.6rem * var(--text)); --fs-xl: calc(2.1rem * var(--text)); --fs-xxl: clamp(2.8rem, 10vw, 4.4rem);
+  --tile: clamp(44px, 9.4vw, 62px);
+  /* Cool edges for reading surfaces. Tactile depth is concentrated on play controls. */
+  --selection-bg: #DFF3EC; --selection-text: #145C51; --selection-edge: #24786B;
+  --progress-fill: #328A48;
+  --tile-face: #EFF7FF; --tile-edge: #5388AA; --tile-depth: #B1D1E8;
+  --shadow-overlay: 0 8px 20px rgb(25 54 44 / .16), 0 24px 48px rgb(25 54 44 / .12);
+  --shadow-paper: 0 3px 0 #DCE8F6, 0 8px 18px rgb(36 52 106 / .08);
+  --shadow-tile: 0 3px 0 var(--tile-depth);
+  --shadow-button: 0 4px 0 var(--sun-edge);
+  --shadow-control: 0 3px 0 #C5D8F0;
+  --shadow-button-pressed: 0 1px 0 var(--sun-edge);
+  --ease-spring: cubic-bezier(.34, 1.56, .64, 1); --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --target: 44px; --press-duration: 140ms;
+
+  --nav-h: 66px;
+}
