@@ -212,3 +212,7 @@ Living Storybook night scene (2026-11-11): assets/art/story-a-new-beginning/nigh
 Living Storybook wind-of-the-Spirit scene (2026-11-11): assets/art/story-a-new-beginning/wind-of-the-spirit.webp (source: wind-of-the-spirit-source.jpeg).
   Same method and model-picker state as the night scene above (Gemini web app, "Gemini Pro" / 3.1 Pro; no more precise id shown).
   Prompted to match the World 1 plate style: the day garden mid-gust with streaming leaves and petals for the John 3:8 "wind of the Spirit" beat. 2528 x 1696.
+
+Living Storybook night conversation scene (2026-11-11): assets/art/story-a-new-beginning/night-conversation-nicodemus-jesus.webp (source: night-conversation-nicodemus-jesus-source.jpeg).
+  Same method and model-picker state as the other story scenes (Gemini web app, "Gemini Pro" / 3.1 Pro; no more precise id shown). Prompted for a reverent night
+  conversation of Nicodemus and Jesus by lantern light, matching the World 1 plate style. 2528 x 1696. DEPICTS JESUS — pending the owner's pastoral review and sign-off.

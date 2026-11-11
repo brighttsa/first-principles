@@ -39,7 +39,7 @@ export function renderStorybook(root, _args, go) {
   function show(n, forward = true) {
     i = n;
     const s = scenes[n], last = n === scenes.length - 1;
-    bg.src = s.night ? BACKDROP.night : (BACKDROP[s.bg] || BACKDROP.early);
+    bg.src = BACKDROP[s.bg] || BACKDROP.early;
     stage.dataset.night = s.night ? 'on' : 'off';
     art.innerHTML = s.sprite ? picture(s.sprite) : '';
     art.classList.remove('lsb-pop'); void art.offsetWidth; if (s.sprite) art.classList.add('lsb-pop');

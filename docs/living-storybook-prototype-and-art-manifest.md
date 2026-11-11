@@ -31,3 +31,17 @@ Until (1)-(2) exist, scenes use the lantern/doorway sprites and Sprig rather tha
 - Whether and how to depict Jesus visually (option: keep Him off-screen, represented by light, and only ever show His words as the verse).
 - The reflective-choice wording ("A new life God gives" vs "A life we earn ourselves") and the correction line — confirm doctrine and tone.
 - Which additional stories per world, and where each launches (intro only, or also a map landmark).
+
+## Scripture-accuracy pass (2026-11-11)
+Narration audited against KJV John 3:1-8 (fetched from source) and tightened:
+- Opening now states only what the text says ("a ruler of the Jews named Nicodemus, a teacher, came to Jesus by night"); dropped the invented "quietly through the garden".
+- Nicodemus' line now reflects 3:2 ("no one could do Jesus' miracles unless God was with him").
+- Jn 3:4 reflected ("asked how a man could be born when he is old").
+- The wind beat now matches 3:8 ("cannot tell where the wind comes from or where it goes, yet you hear its sound; so is every one born of the Spirit") instead of the earlier "see the leaves it lifts".
+- Removed the seed→flower metaphor (foreign to John 3); the Sprig line now says the new birth is "God's own work — born of the Spirit, not of ourselves".
+Verses (Jn 3:3, 3:5-6, John 3:8) remain verbatim through the KJV reader.
+
+### Still for the owner's pastoral review (interpretive, not changed unilaterally)
+- The "anothen = from above" teaching note (consistent with the World 1 curriculum's ANOTHEN puzzle).
+- The reflective choice: correct "A new life God gives" vs incorrect "A life we earn ourselves" / "not something we earn" — a grace framing inferred from the passage; confirm wording and doctrine.
+- Depicting Jesus at all (the night conversation scene). Confirm the depiction is acceptable, or we keep Him represented by light only.
