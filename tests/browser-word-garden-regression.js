@@ -46,7 +46,8 @@ async (page, base = 'http://127.0.0.1:8733') => {
           const { world1 } = await import('./js/world-1-born-again-curriculum-content.js');
           return world1.lessons.flatMap(lesson => lesson.puzzles).find(puzzle => puzzle.id === id);
         }, level.id);
-        for (const answer of runtime.targetWords) {
+        // Teen and adult racks also need the garden words (on a two-rack level they belong to the first rack).
+        for (const answer of (runtime.nextLetters ? [runtime.targetWords[0], ...(runtime.gardenWords || []), runtime.targetWords[1]] : [...runtime.targetWords, ...(runtime.gardenWords || [])])) {
           for (const letter of answer) {
             const id = await p.locator('.wg-letter[aria-pressed="false"]').evaluateAll((items, char) => items.find(item => item.textContent === char)?.dataset.letter, letter);
             assert(id !== undefined, `Available letter ${letter}: ${level.id}`);
@@ -55,7 +56,7 @@ async (page, base = 'http://127.0.0.1:8733') => {
           }
           await p.getByRole('button', { name: 'Find word' }).focus();
           await p.keyboard.press('Enter');
-          if (await p.locator('.wg-play').isVisible()) await p.getByRole('listitem', { name: answer + ' found' }).waitFor();
+          if (await p.locator('.wg-play').isVisible()) await p.locator('.wg-current').filter({ hasText: answer }).waitFor();
           else await p.locator('.wg-question').waitFor();
         }
         const correct = runtime.choices.findIndex(choice => choice.correct);

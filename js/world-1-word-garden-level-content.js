@@ -49,10 +49,26 @@ Object.assign(levels[2], {
   completion: 'Find TRIP and SPIRIT, then answer the Scripture question.',
 });
 
+// Depth for the opening levels. Garden words are extra slots for teen and adult players, taken from the rack's own word
+// list (children keep the shorter rack, where these stay bonus words). Every level hides one golden word among its
+// bonus words; finding it earns a mastery leaf. These are everyday words, not teaching claims.
+const depth = {
+  wg01: { gardenWords: ['BROWN', 'BONE', 'OWN'], gardenClue: 'Find NEW and BORN, then fill the garden.' },
+  wg02: { gardenWords: ['TEAR', 'WEAR', 'RATE'], gardenClue: 'Find WATER, then fill the garden.' },
+  // Level 3 keeps its riddle clue (a longer one wrapped on short screens); the garden chip signals the extra words.
+  wg03: { gardenWords: ['STRIP', 'STIR', 'TIPS'] },
+};
+const golden = { wg01: 'WREN', wg02: 'EAR', wg03: 'SIR', wg04: 'TREE', wg05: 'DOVE', wg06: 'GOOD', wg07: 'WOOD', wg08: 'ENTER', wg09: 'VEIL', wg10: 'ROSE' };
+for (const level of levels) {
+  const extra = depth[level.id];
+  if (extra) Object.assign(level, extra, { bonusWords: level.bonusWords.filter(item => !extra.gardenWords.includes(item)) });
+  level.goldenWord = golden[level.id];
+}
+
 const insertAfter = ['p1', 'p11', 'p17', 'p12', 'p18', 'p6', 'p13', 'p21', 'p9', 'p14'];
 for (const level of levels) {
   level.type = 'wordgarden';
-  level.validWords = [...new Set([...level.targetWords, ...level.bonusWords])];
+  level.validWords = [...new Set([...level.targetWords, ...(level.gardenWords || []), ...level.bonusWords])];
   level.insertAfter = insertAfter[level.levelNumber - 1];
 }
 export const world1WordGardenLevels = levels;

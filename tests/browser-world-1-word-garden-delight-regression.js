@@ -27,9 +27,13 @@ async (page, base = 'http://127.0.0.1:8733', screenshotDir = '') => {
  await p.getByRole('button',{name:'Hint',exact:true}).tap();await p.getByText(/Hint: The key word/).waitFor();
  await p.getByRole('button',{name:'Shuffle letters'}).tap();
  assert(await p.locator('.wg-letter').count()===7,'shuffle retains letters');
+ await enter('BROWN');await enter('BONE');await enter('OWN');
+ assert((await p.locator('.wg-garden-chip').getAttribute('aria-label')).startsWith('Garden words: 3 of 3 found'),'garden chip counts garden words');
  await enter('BORN');await learn('A person needs a new birth.','Jn 3:3');
+ assert(await p.locator('.wg-leaves').getAttribute('aria-label')==='Leaves earned: 1 of 3','a hint and no golden word earn one leaf');
  await p.reload();await level(1);
  await p.setViewportSize({width:768,height:1024});await level(1);
+ await enter('TEAR');await enter('WEAR');await enter('RATE');
  await drag('WATER',false);await p.getByText('What does Peter say the new birth comes by? Find the key word.').waitFor();
  assert((await p.locator('.wg-letter').allTextContents()).join('')==='SODWR','deterministic cascade');
  assert(await p.locator('.wg-letter').first().evaluate(e=>getComputedStyle(e).animationName)==='none','reduced motion');
@@ -67,6 +71,7 @@ async (page, base = 'http://127.0.0.1:8733', screenshotDir = '') => {
  await p.setViewportSize({width:1280,height:800});await level(2);
  await enter('TRIP');assert(await p.locator('.wg-scene').getAttribute('data-growth')==='1','bridge half complete');
  if (screenshotDir) await p.screenshot({path:screenshotDir+'/'+'delight-bridge-desktop.png'});
+ await enter('STRIP');await enter('STIR');await enter('TIPS');
  await enter('SPIRIT');await learn('What is born of the flesh and what is born of the Spirit.','Jn 3:6');
  assert(await p.locator('.wg-scene').getAttribute('data-growth')==='3','bridge celebration');
  const saved=await p.evaluate(()=>JSON.parse(localStorage.getItem('wol.v1')));

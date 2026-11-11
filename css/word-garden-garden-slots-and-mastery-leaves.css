@@ -1,0 +1,29 @@
+/* Garden words: one fixed-width chip at the end of the key-word row (a leaf, then a pip per word). A pip shows the
+   word's letter count until it is found, then a check; the chip never changes width, so the board never shifts. */
+.wg-garden-chip {
+  display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px; border: 2px dashed #8CB69C; border-radius: 14px;
+  background: #F6FBF3;
+}
+.wg-pips { display: inline-flex; gap: 4px; }
+.wg-pip {
+  display: inline-grid; place-items: center; width: 20px; height: 26px; border-radius: 7px; background: #fff;
+  box-shadow: inset 0 0 0 2px #CFE3D3; color: var(--navy); font: 800 .8125rem/1 var(--font-display);
+}
+.wg-pip.found { background: var(--state-success-bg); box-shadow: inset 0 0 0 2px var(--state-success-edge); color: var(--state-success-text); }
+/* A just-found pip borrows the slot's settle animation but keeps its own small size. */
+.wg-pip.wg-target { min-width: 0; min-height: 0; padding: 0; border: 0; }
+
+/* Three mastery leaves under the answered question. Colour plus a label carries the meaning, so no motion is needed. */
+.wg-leaves { margin-top: var(--s2); padding: 10px 12px; border-radius: 14px; background: #F3FAEF; }
+.wg-leaves ul { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; margin: 0; padding: 0; list-style: none; }
+.wg-leaf { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-soft); font: 700 var(--fs-s)/1.2 var(--font-display); }
+.wg-leaf.on { color: var(--leaf-deep); }
+.wg-leaf-icon { width: 18px; height: 18px; border: 2px solid #9DBFA6; border-radius: 0 70% 0 70%; background: #fff; transform: rotate(-8deg); }
+.wg-leaf.on .wg-leaf-icon { border-color: var(--leaf-deep); background: linear-gradient(135deg, #8FD16A, #3E9B47); }
+.wg-leaves p { margin: 6px 0 0; text-align: center; color: var(--navy); font-size: var(--fs-s); }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion="reduced"]) .wg-leaf.on .wg-leaf-icon { animation: wg-leaf-pop 420ms var(--ease-out) both; }
+  :root:not([data-motion="reduced"]) .wg-leaf.on:nth-child(2) .wg-leaf-icon { animation-delay: 120ms; }
+  :root:not([data-motion="reduced"]) .wg-leaf.on:nth-child(3) .wg-leaf-icon { animation-delay: 240ms; }
+}
+@keyframes wg-leaf-pop { 0% { scale: .3; } 60% { scale: 1.25; } 100% { scale: 1; } }

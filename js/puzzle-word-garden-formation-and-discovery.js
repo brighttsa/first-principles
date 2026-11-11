@@ -9,6 +9,7 @@ import { wireWheelPointer } from './word-garden-wheel-pointer-input.js';
 import { sparkBurst } from './kenney-icon-and-sparkle-helpers.js';
 import { gardenScene, reactInGarden } from './word-garden-adventure-reactions.js';
 import { createDiscoveryFeedback } from './word-garden-discovery-feedback-effects.js';
+import { gardenWordsFor, requiredWords, bonusWordsFor, slotWords, validGardenContent, awardLeaves, leavesMarkup, gardenChipMarkup } from './word-garden-garden-words-golden-word-and-mastery-leaves.js';
 
 const word = (value) => String(value).normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toUpperCase().replace(/[^A-Z]/g, '');
 export function canFormWord(letters, answer) {
@@ -34,7 +35,8 @@ export function validContent(p) {
     && onNextRack.every((item) => canFormWord(p.nextLetters, item))
     && (!hasNext || p.nextBonusWords.every(item => !p.targetWords.includes(item)))
     && p.bonusWords?.every((item) => p.validWords.includes(word(item)) && !p.targetWords.includes(word(item)))
-    && p.choices?.filter((item) => item.correct).length === 1;
+    && p.choices?.filter((item) => item.correct).length === 1
+    && validGardenContent(p, canFormWord);
 }
 
 export function mount(root, p, ctx) {
@@ -54,6 +56,9 @@ export function mount(root, p, ctx) {
   const bonusMap = state.wordGarden?.bonusFound || (state.wordGarden = { bonusFound: {} }).bonusFound;
   const bonusFound = new Set(bonusMap[p.id] || []);
   let hintIndex = 0, answered = false, learning = false;
+  // Mastery inputs: any hint this attempt costs the "no hints" leaf; a golden word found on any visit stays found.
+  let hintsUsed = 0;
+  const clue = gardenWordsFor(p).length && p.gardenClue ? p.gardenClue : p.clue;
   let clearSparks;
   ctx.cleanup(() => clearSparks?.());
   let fx; // discovery effects; created once the rack exists
@@ -61,7 +66,7 @@ export function mount(root, p, ctx) {
   const levelLabel = p.levelLabel || `Word Garden · Level ${p.levelNumber} of 10`;
   root.innerHTML = `<section class="word-garden"${p.adventure ? ` data-adventure="${p.adventure}"` : ''} aria-label="${esc(levelLabel)}">
     <header class="wg-heading">${p.adventure ? '' : `<p class="kicker">${esc(levelLabel)}</p>`}<h2>${esc(p.title)}</h2>
-      ${p.adventure ? '' : `<p class="wg-objective">${esc(p.learningObjective)}</p>`}<p class="wg-clue">${esc(p.clue)}</p></header>
+      ${p.adventure ? '' : `<p class="wg-objective">${esc(p.learningObjective)}</p>`}<p class="wg-clue">${esc(clue)}</p></header>
     ${gardenScene(p)}<div class="wg-play">
     <div class="wg-targets" role="list" aria-label="Words to discover"></div>
     <p class="wg-bonus-status" role="status" aria-live="polite"></p>
@@ -72,6 +77,7 @@ export function mount(root, p, ctx) {
   </section>`;
   const targets = root.querySelector('.wg-targets'), rack = root.querySelector('.wg-rack');
   fx = createDiscoveryFeedback(rack);
+  const gardenChip = (garden, discovered) => gardenChipMarkup(garden, found, discovered);
   const idlePrompt = p.adventure ? 'Drag to connect, or tap letters.' : 'Choose letters, then submit your word.';
   const current = root.querySelector('.wg-current'), polyline = root.querySelector('.wg-links polyline');
   let order = letters.map((letter, index) => ({ letter, index }));
@@ -87,7 +93,9 @@ export function mount(root, p, ctx) {
     updatePath();
   }
   function renderTargets(discovered = '') {
-    targets.innerHTML = p.targetWords.map((answer) => `<span role="listitem" class="wg-target ${found.has(word(answer)) ? 'found' : ''}${word(answer) === discovered ? ' just-found' : ''}" aria-label="${found.has(word(answer)) ? `${esc(answer)} found` : `Word to find, ${word(answer).length} letters`}">${found.has(word(answer)) ? esc(answer) : `<span aria-hidden="true">${'· '.repeat(word(answer).length).trim()}</span>`}</span>`).join('');
+    const slot = ({ item: answer, kind }) => `<span role="listitem" class="wg-target ${kind} ${found.has(word(answer)) ? 'found' : ''}${word(answer) === discovered ? ' just-found' : ''}" aria-label="${found.has(word(answer)) ? `${esc(answer)} found` : `${kind === 'garden' ? 'Garden word' : 'Word to find'}, ${word(answer).length} letters`}">${found.has(word(answer)) ? esc(answer) : `<span aria-hidden="true">${'· '.repeat(word(answer).length).trim()}</span>`}</span>`;
+    const slots = slotWords(p);
+    targets.innerHTML = slots.filter((item) => item.kind === 'key').map(slot).join('') + gardenChip(slots.filter((item) => item.kind === 'garden').map((item) => item.item), discovered);
     root.querySelector('.wg-bonus-status').textContent = bonusFound.size ? `Bonus words found: ${[...bonusFound].join(', ')}` : '';
   }
   function updatePath(pointer) {
@@ -179,26 +187,31 @@ export function mount(root, p, ctx) {
     if (answer.length < 3) return tell('Connect at least three letters.', 'retry');
     const picked = [...selected]; // captured so the tiles can react after the selection clears
     clear();
-    if (found.has(answer) || (!p.targetWords.includes(answer) && bonusFound.has(answer))) return tell(`Already found: ${answer}`, 'repeat');
-    const target = p.nextLetters ? p.targetWords[Number(secondRack)] === answer : p.targetWords.includes(answer);
-    const bonuses = secondRack ? p.nextBonusWords : p.bonusWords;
-    if (target) {
+    const required = requiredWords(p, secondRack);
+    if (found.has(answer) || (!required.includes(answer) && bonusFound.has(answer))) return tell(`Already found: ${answer}`, 'repeat');
+    const bonuses = bonusWordsFor(p, secondRack);
+    if (required.includes(answer)) {
       mark('target');
       found.add(answer);
-      const finale = found.size === p.targetWords.length;
-      const tier = finale || answer === word(p.keyWord || '') ? 'key' : 'target';
+      if (!secondRack) hintIndex = 0; // hints escalate per word; the second rack keeps its graded evidence hints
+      const rackDone = required.every((item) => found.has(item));
+      const finale = rackDone && (!p.nextLetters || secondRack);
+      const isGarden = !p.targetWords.includes(answer);
+      // Scene growth follows the key words (the lesson's words); garden words add sparkle, not stages.
+      const keyFound = p.targetWords.filter((item) => found.has(item)).length;
+      const tier = rackDone || answer === word(p.keyWord || '') ? 'key' : 'target';
       fx.tiles(picked, tier);
       renderTargets(answer);
-      fx.fly(answer, targets.querySelector('.just-found'), tier);
+      fx.fly(answer, root.querySelector('.wg-target.just-found'), tier);
       // Sound tiers match the visual tiers: a short chime for a word, the full jingle (which spans the flight) for the key word.
       if (tier === 'key') { sfx('found', .42); buzz([12, 60, 18]); } else { sfx('good', .4); buzz(14); }
-      reactInGarden(root, tier === 'key' ? 'celebrating' : 'happy', found.size, 'target');
+      reactInGarden(root, tier === 'key' ? 'celebrating' : 'happy', keyFound, 'target');
       if (p.adventure) {
         clearSparks?.();
         clearSparks = sparkBurst(root.querySelector('.wg-scene'), 3);
       }
-      tell(`Found ${answer}!`, 'target');
-      if (p.nextLetters && !secondRack) {
+      tell(isGarden ? `Garden word: ${answer}!` : `Found ${answer}!`, 'target');
+      if (p.nextLetters && !secondRack && rackDone) {
         const restoreFocus = rack.contains(document.activeElement);
         secondRack = true;
         letters = [...p.nextLetters];
@@ -207,7 +220,7 @@ export function mount(root, p, ctx) {
         hintIndex = 0;
         if (p.evidence) showRackClue();
         else root.querySelector('.wg-clue').textContent = 'Find the next word.';
-        tell('WATER found. Fresh letters!', 'target', 'surprised');
+        tell(`${answer} found. Fresh letters!`, 'target', 'surprised'); // names the word that completed the rack
         if (restoreFocus) rack.firstElementChild.focus();
       }
       if (!p.adventure && answer === p.keyWord) revealKeyWord();
@@ -217,8 +230,14 @@ export function mount(root, p, ctx) {
         fx.afterLanding(showQuestion);
       }
     } else if (bonuses.includes(answer)) {
-      fx.tiles(picked, 'micro');
-      tell(recordBonus(answer), 'bonus', 'surprised');
+      const golden = answer === p.goldenWord;
+      fx.tiles(picked, golden ? 'key' : 'micro');
+      const note = recordBonus(answer);
+      if (golden) {
+        // The golden word is a hidden find: it shines like a key word and earns a mastery leaf.
+        clearSparks?.(); clearSparks = sparkBurst(root.querySelector('.wg-scene') || targets, 8); sfx('found', .38);
+        tell(`Golden word: ${answer}! A hidden treasure in this garden.`, 'bonus', 'celebrating');
+      } else tell(note, 'bonus', 'surprised');
     } else {
       fx.tiles(picked, 'miss');
       mark('invalid');
@@ -242,7 +261,10 @@ export function mount(root, p, ctx) {
     mark('complete');
     answered = true; reactInGarden(root, 'celebrating', 3, 'complete'); feedback.textContent = choice.feedback;
     root.querySelectorAll('[data-choice]').forEach((item) => { item.disabled = true; });
-    button.classList.add('correct'); sfx('solved', .4); ctx.solved(p.afterLearn);
+    button.classList.add('correct'); sfx('solved', .4);
+    const leaves = awardLeaves(p, { hintsUsed, goldenFound: bonusFound.has(p.goldenWord) });
+    feedback.insertAdjacentHTML('afterend', leavesMarkup(leaves));
+    ctx.solved(p.afterLearn);
   }
   const undo = () => { selected.pop(); updatePath(); };
   wireWheelPointer(rack, {
@@ -277,13 +299,17 @@ export function mount(root, p, ctx) {
   addEventListener('resize', onResize, { passive: true });
   ctx.cleanup(() => removeEventListener('resize', onResize));
   ctx.onHint(() => {
-    mark('hint');
+    mark('hint'); hintsUsed++;
     if (learning) return ctx.say('Hint: Read the passage and look for the words that answer the question.', 'soft');
     if (secondRack && p.evidence) {
       const hints = p.evidence.hints;
       return ctx.say(`Hint: ${hints[Math.min(hintIndex++, hints.length - 1)]}`, 'soft');
     }
-    const next = p.targetWords.find((item) => !found.has(word(item)));
+    const next = requiredWords(p, secondRack).find((item) => !found.has(word(item)));
+    // Key words get the lesson's own hint; a garden word gets its first letter, then the word itself.
+    if (next && !p.targetWords.includes(next)) {
+      return ctx.say(hintIndex++ > 0 ? `Hint: The garden word is ${word(next)}.` : `Hint: A garden word with ${word(next).length} letters starts with ${word(next)[0]}.`, 'soft');
+    }
     const extra = hintIndex++ > 0 && next ? ` The word is ${word(next)}.` : next ? ` The next word has ${word(next).length} letters.` : '';
     ctx.say(`Hint: ${p.hint}${extra}`, 'soft');
   });

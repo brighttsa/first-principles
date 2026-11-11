@@ -20,14 +20,15 @@ async (page, base = 'http://127.0.0.1:8732') => {
     const solve = {
       wordbuild: async puzzle => p.keyboard.type(puzzle.answer),
       wordgarden: async puzzle => {
-        for (const answer of puzzle.targetWords) {
+        // Teen and adult racks also need the garden words (on a two-rack level they belong to the first rack).
+        for (const answer of (puzzle.nextLetters ? [puzzle.targetWords[0], ...(puzzle.gardenWords || []), puzzle.targetWords[1]] : [...puzzle.targetWords, ...(puzzle.gardenWords || [])])) {
           for (const char of answer) {
             const id = await p.locator('.wg-letter[aria-pressed="false"]').evaluateAll((tiles, letter) => tiles.find(tile => tile.textContent === letter)?.dataset.letter, char);
             assert(id !== undefined, 'Word Garden has tile ' + char + ': ' + puzzle.id);
             await press(p.locator('.wg-letter[data-letter="' + id + '"]'));
           }
           await press(p.getByRole('button', { name: 'Find word', exact: true }));
-          if (await p.locator('.wg-play').isVisible()) await p.getByRole('listitem', { name: answer + ' found' }).waitFor();
+          if (await p.locator('.wg-play').isVisible()) await p.locator('.wg-current').filter({ hasText: answer }).waitFor();
           else await p.locator('.wg-question').waitFor();
         }
         const correct = puzzle.choices.findIndex(choice => choice.correct);

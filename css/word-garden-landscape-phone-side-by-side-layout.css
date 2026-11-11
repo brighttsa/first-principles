@@ -18,7 +18,8 @@
 
   .word-garden:has(> .wg-play:not([hidden])) {
     max-width: none; align-items: center; column-gap: 16px; row-gap: 6px;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+    /* The word-slot column (beside the scene) gets the larger share so key words plus the garden chip stay on one row. */
+    grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr) auto;
     /* The title and clue get the full left width (fewer wrapped lines); the scene sits beside the word slots and
        the bonus line, which together are about the scene's height, so it costs no extra row. */
     grid-template-areas:
