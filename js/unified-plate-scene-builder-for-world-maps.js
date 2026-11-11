@@ -12,10 +12,11 @@
 export function createUnifiedPlateScene({ dir, landmarks, reveals, ambient }) {
   // HD: the portrait plate ships at its native 1536 px width; the landscape plate ships at a normal and a retina size and the
   // browser picks by density on desktop. Tablet maps use the native landscape plate to keep at least two source pixels per CSS pixel.
-  // Heroes (no map markers) keep their existing responsive source selection.
+  // Heroes (no map markers) keep their existing responsive source selection. Landscape phones (landscape, at most 500px
+  // tall) get the landscape painting at any width, matching the landscape landmark coordinates in the map CSS.
   const plate = (state, hero = false, nativeHero = false) => `<picture class="wp-plate" data-plate="${state}">
-  ${hero ? '' : `<source media="(768px <= width < 1100px)" srcset="${dir}/landscape-${state}-2752.webp">`}
-  <source media="${hero ? '(min-width: 700px) and (orientation: landscape)' : '(min-width: 1100px)'}" srcset="${!hero || nativeHero ? `${dir}/landscape-${state}-2752.webp` : `${dir}/landscape-${state}-1400.webp 1400w, ${dir}/landscape-${state}-2752.webp 2752w`}" sizes="100vw">
+  ${hero ? '' : `<source media="(768px <= width < 1100px), (orientation: landscape) and (max-height: 500px) and (width < 1100px)" srcset="${dir}/landscape-${state}-2752.webp">`}
+  <source media="${hero ? '(min-width: 700px) and (orientation: landscape), (orientation: landscape) and (max-height: 500px)' : '(min-width: 1100px)'}" srcset="${!hero || nativeHero ? `${dir}/landscape-${state}-2752.webp` : `${dir}/landscape-${state}-1400.webp 1400w, ${dir}/landscape-${state}-2752.webp 2752w`}" sizes="100vw">
   <img src="${dir}/portrait-${state}-1536.webp" alt="" decoding="async"${state === 'early' ? ' fetchpriority="high"' : ''}></picture>`;
 
   const reveal = (name, state) => {

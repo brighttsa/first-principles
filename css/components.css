@@ -107,7 +107,9 @@ dialog.game-modal[open] { animation: game-modal-enter 180ms var(--ease-out) both
 .toggle input[type=range]::-webkit-slider-thumb { appearance: none; width: 24px; height: 24px; margin-top: -9px; border: 3px solid #fff; border-radius: 50%; background: var(--selection-text); }
 .toggle input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: 3px solid #fff; border-radius: 50%; background: var(--selection-text); }
 .toggle input:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
-.toggle-choice select { width: min(100%, 300px); }
+/* Bounded select column: an `auto` column sized itself to the longest option text and squeezed the label to zero width. */
+.toggle-choice { grid-template-columns: minmax(7rem, 1fr) minmax(0, 300px); }
+.toggle-choice select { width: 100%; min-width: 0; }
 .toggle-range input[type=range] { width: min(100%, 280px); }
 .setting-group-title { margin: var(--s5) 0 var(--s2); color: var(--navy); font: 700 var(--fs-l)/1.15 var(--font-display); }
 .setting-group-title:first-child { margin-top: 0; }

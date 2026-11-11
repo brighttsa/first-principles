@@ -7,7 +7,8 @@
 /* Soft edge so the completed painting melts into the started one. */
 .wp-reveal { -webkit-mask-image: radial-gradient(ellipse var(--rx) var(--ry) at var(--cx) var(--cy), #000 55%, transparent 100%);
   mask-image: radial-gradient(ellipse var(--rx) var(--ry) at var(--cx) var(--cy), #000 55%, transparent 100%); clip-path: none; -webkit-clip-path: none; }
-@media (min-width: 768px) {
+/* Landscape phones (landscape, at most 500px tall) use the landscape composition too, whatever their width. */
+@media (min-width: 768px), (orientation: landscape) and (max-height: 500px) {
   .wp-reveal { -webkit-mask-image: radial-gradient(ellipse var(--lrx) var(--lry) at var(--lcx) var(--lcy), #000 55%, transparent 100%);
     mask-image: radial-gradient(ellipse var(--lrx) var(--lry) at var(--lcx) var(--lcy), #000 55%, transparent 100%); }
 }
@@ -16,7 +17,7 @@
 [data-motion="reduced"] .wp-reveal { transition: none; }
 
 /* Phone: the doorway is painted top right, so Sprout waits on the left among the foliage instead of covering it. */
-@media (width < 768px) {
+@media (width < 768px) and (orientation: portrait), (width < 768px) and (min-height: 501px) {
   .living-world .world-guide { top: 42%; right: auto; left: 2.5%; }
 }
 
@@ -34,7 +35,7 @@
 .living-world .mh-text { max-width: 272px; white-space: nowrap; padding: 6px 12px 8px; background: rgba(255, 255, 255, .86); }
 .living-world .mh-text h1 { font-size: 1.15rem; margin-bottom: 3px; }
 .living-world .map-head .ex-bar { height: 10px; }
-@media (min-width: 768px) {
+@media (min-width: 768px), (orientation: landscape) and (max-height: 500px) {
   .living-world .fog { -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%); mask-image: linear-gradient(to right, transparent 0, #000 16%); }
 }
 
@@ -47,9 +48,9 @@
   .living-world .world-actions button { flex: 1 1 auto; white-space: nowrap; }
 }
 
-/* Give tablets the landscape composition and its matching landmark coordinates.
+/* Give tablets and landscape phones the landscape composition and its matching landmark coordinates.
    Moving the dashboard below frees the map from competing with the desktop rail. */
-@media (min-width: 768px) and (width < 1100px) {
+@media (min-width: 768px) and (width < 1100px), (orientation: landscape) and (max-height: 500px) and (width < 1100px) {
   .mapscreen .map-layout {
     grid-template-columns: minmax(0, 1fr);
     padding: var(--s4) var(--s5) var(--s6);
