@@ -10,7 +10,7 @@ Flagship story **"A New Beginning" (John 3, Nicodemus)**, reachable from the cha
 
 Flow: 7 painted scenes, tap/Next to advance, night→day scene filter, Sprig narrates. Interactions: tap the glowing word **again** to reveal "from above"; a reflective choice ("What is the new birth?") with a gentle correction. Ends by handing into the first lesson (`#/lesson/0`). A read flag is saved (`state.story.read.john3`, additive to `wol.v1`).
 
-Scripture is shown only through the Bible reader component (verbatim KJV from the provider — built-in lesson text or bible-api.com): **Jn 3:3** and **Jn 3:5-6**. Narration is plain description in our own words; Jesus' words appear only as the cited verse.
+Scripture is shown only through the Bible reader component (verbatim KJV from the provider — built-in lesson text or bible-api.com): **Jn 3:3**, **Jn 3:5-6**, and **John 3:8** (3:8 fetches live from the provider; offline it shows the reader loading/error state). Narration is plain description in our own words; Jesus' words appear only as the cited verse.
 
 ## Art used (existing, real assets)
 - Backdrops: `assets/art/world-1-plates/landscape-early-2752.webp` and `landscape-complete-2752.webp` (night via CSS filter).
@@ -23,7 +23,7 @@ Match the existing World 1 plate style (bold ink outlines, saturated emerald/gol
 1. **Nicodemus** — DONE as a full painted night scene (`assets/art/story-a-new-beginning/night-garden-nicodemus-2528.webp`): the teacher with a glowing lantern on the moonlit garden path. Used as the night backdrop for scenes 1-4. A separate figure cutout/bust could still be added for variety.
 2. **Jesus** — reverent, warm, not a face close-up; a standing figure with gentle light, robes. Used when the cited verse is His. Keep respectful and non-caricatured; get pastoral sign-off on depiction.
 3. **Night-garden backdrop** — DONE (same image as #1); the CSS day-plate filter is no longer used for night.
-4. Optional: a soft "wind/Spirit" motif backdrop for the "born of the Spirit" beat (John 3:8 theme), and a Nicodemus+Jesus two-shot for the conversation.
+4. **Wind of the Spirit** — DONE (`assets/art/story-a-new-beginning/wind-of-the-spirit.webp`): the day garden mid-gust for the John 3:8 beat. Optional still: a Nicodemus+Jesus two-shot for the conversation.
 
 Until (1)-(2) exist, scenes use the lantern/doorway sprites and Sprig rather than placeholder character faces.
 

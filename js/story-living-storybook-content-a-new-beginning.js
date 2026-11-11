@@ -25,6 +25,10 @@ export const STORIES = {
           meaning: 'It means “from above”. The new birth is a new life that comes down from God, from heaven.' } },
       { bg: 'early', night: false, sprite: 'bible-open', speaker: 'Jesus', mood: 'encouraging',
         text: 'Jesus explained how this new life begins:', verse: 'Jn 3:5-6' },
+      { bg: 'wind', night: false, sprite: null, speaker: 'Jesus', mood: 'encouraging',
+        text: 'Then Jesus compared the Spirit to the wind:', verse: 'John 3:8' },
+      { bg: 'wind', night: false, sprite: null, speaker: 'Narrator', mood: 'thinking',
+        text: 'You cannot see the wind, but you can see the leaves it lifts. The Spirit works the same way — unseen, yet alive and real.' },
       { bg: 'complete', night: false, sprite: 'garden-bloom', speaker: 'Sprig', mood: 'happy',
         text: 'A life born of the Spirit grows like a tiny seed becoming a flower — something only God can make alive.' },
       { bg: 'complete', night: false, sprite: 'garden-bloom', speaker: 'Sprig', mood: 'pointing',
@@ -46,6 +50,7 @@ export const BACKDROP = {
   early: 'assets/art/world-1-plates/landscape-early-2752.webp',
   complete: 'assets/art/world-1-plates/landscape-complete-2752.webp',
   night: 'assets/art/story-a-new-beginning/night-garden-nicodemus-2528.webp',
+  wind: 'assets/art/story-a-new-beginning/wind-of-the-spirit.webp',
 };
 export const SPRITE = {
   'lantern-lit': 'assets/art/gemini-world-1/sprite2-lantern-lit',
