@@ -7,6 +7,7 @@
 // Nothing here blocks input: effects run on classes and a detached ghost, and every timer is cleared by the returned cleanup.
 import { state } from './saved-progress-and-settings-state.js';
 import { sparkBurst } from './kenney-icon-and-sparkle-helpers.js';
+import { sfx } from './sound-effects-music-narration-haptics.js';
 
 const reducedMotion = () => state.settings.motion === 'on'
   || (state.settings.motion === 'auto' && matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -47,7 +48,10 @@ export function createDiscoveryFeedback(rack) {
       { transform: 'translate(-50%, -50%) scale(1.12)', opacity: 1, offset: .25 },
       { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(.9)`, opacity: .9 },
     ], { duration: FLY_MS, easing: 'cubic-bezier(.22, 1, .36, 1)', fill: 'forwards' });
-    later(() => { ghost.remove(); ghosts.delete(ghost); if (tier === 'key') sparkBurst(slot, 8); }, FLY_MS);
+    later(() => {
+      ghost.remove(); ghosts.delete(ghost);
+      if (tier === 'key') sparkBurst(slot, 8); else sfx('pluck', .3, 1.1); // a soft click as the word seats in its slot
+    }, FLY_MS);
   }
 
   /** Run a follow-up once the word has landed (immediately under reduced motion); cancelled by cleanup. */

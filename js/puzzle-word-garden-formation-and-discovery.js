@@ -111,7 +111,8 @@ export function mount(root, p, ctx) {
   function choose(id) {
     if (selected.includes(id) || answered || learning) return;
     if (!interacted) { interacted = true; mark('first-letter'); }
-    selected.push(id); sfx('place', .35); buzz(6); updatePath();
+    // Each letter sounds a step higher, so a word audibly builds toward its submit (capped to stay pleasant).
+    selected.push(id); sfx('place', .35, Math.min(1 + (selected.length - 1) * .07, 1.42)); buzz(6); updatePath();
   }
   function clear() { selected.length = 0; updatePath(); }
   function tell(message, kind, mood) {
@@ -123,7 +124,7 @@ export function mount(root, p, ctx) {
     if (bonusFound.has(answer)) return 'You already found that bonus word.';
     bonusFound.add(answer);
     state.wordGarden ||= { bonusFound: {} };
-    state.wordGarden.bonusFound[p.id] = [...bonusFound]; save(); sfx('found', .3);
+    state.wordGarden.bonusFound[p.id] = [...bonusFound]; save(); sfx('pluck2', .35, 1.15); buzz(8);
     return `Bonus discovery: ${answer}. ${bonusFound.size} unique bonus ${bonusFound.size === 1 ? 'word' : 'words'} found.`;
   }
   function revealKeyWord() {
@@ -189,7 +190,8 @@ export function mount(root, p, ctx) {
       fx.tiles(picked, tier);
       renderTargets(answer);
       fx.fly(answer, targets.querySelector('.just-found'), tier);
-      sfx('found', .42);
+      // Sound tiers match the visual tiers: a short chime for a word, the full jingle (which spans the flight) for the key word.
+      if (tier === 'key') { sfx('found', .42); buzz([12, 60, 18]); } else { sfx('good', .4); buzz(14); }
       reactInGarden(root, tier === 'key' ? 'celebrating' : 'happy', found.size, 'target');
       if (p.adventure) {
         clearSparks?.();
@@ -221,7 +223,7 @@ export function mount(root, p, ctx) {
       fx.tiles(picked, 'miss');
       mark('invalid');
       ctx.miss?.();
-      sfx('oops', .35);
+      sfx('oops', .28); buzz([8, 50, 8]);
       if (p.adventure) tell(`Try another word. ${answer} isn’t on this rack’s list.`, 'retry', 'encouraging');
       else ctx.say('That word is not in this level’s word list. Try another combination.', 'soft');
     }

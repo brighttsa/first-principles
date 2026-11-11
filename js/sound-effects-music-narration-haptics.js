@@ -15,15 +15,18 @@ function audio(name) {
   return cache[name];
 }
 
-export function sfx(name, vol = 0.55) {
+/** `rate` above 1 raises the pitch (used to make letters climb as a word is built). */
+export function sfx(name, vol = 0.55, rate = 1) {
   if (!state.settings.sfx || !FILES[name]) return;
   try {
     const a = audio(name).cloneNode();
     a.volume = vol;
+    if (rate !== 1) { a.preservesPitch = false; a.playbackRate = rate; }
     a.play().catch(() => {});
   } catch { /* autoplay blocked until first gesture */ }
 }
 
+/** A duration in ms, or a pattern such as [8, 50, 8] for a double tap. */
 export function buzz(ms = 12) {
   if (state.settings.haptics && navigator.vibrate && navigator.userActivation?.hasBeenActive !== false) navigator.vibrate(ms);
 }
