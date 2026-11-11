@@ -82,8 +82,8 @@ export function mount(root, p, ctx) {
     renderTargets();
     updatePath();
   }
-  function renderTargets() {
-    targets.innerHTML = p.targetWords.map((answer) => `<span role="listitem" class="wg-target ${found.has(word(answer)) ? 'found' : ''}" aria-label="${found.has(word(answer)) ? `${esc(answer)} found` : `Word to find, ${word(answer).length} letters`}">${found.has(word(answer)) ? esc(answer) : `<span aria-hidden="true">${'· '.repeat(word(answer).length).trim()}</span>`}</span>`).join('');
+  function renderTargets(discovered = '') {
+    targets.innerHTML = p.targetWords.map((answer) => `<span role="listitem" class="wg-target ${found.has(word(answer)) ? 'found' : ''}${word(answer) === discovered ? ' just-found' : ''}" aria-label="${found.has(word(answer)) ? `${esc(answer)} found` : `Word to find, ${word(answer).length} letters`}">${found.has(word(answer)) ? esc(answer) : `<span aria-hidden="true">${'· '.repeat(word(answer).length).trim()}</span>`}</span>`).join('');
     root.querySelector('.wg-bonus-status').textContent = bonusFound.size ? `Bonus words found: ${[...bonusFound].join(', ')}` : '';
   }
   function updatePath(pointer) {
@@ -179,7 +179,7 @@ export function mount(root, p, ctx) {
     if (target) {
       mark('target');
       found.add(answer);
-      renderTargets();
+      renderTargets(answer);
       sfx('found', .42);
       reactInGarden(root, 'happy', found.size, 'target');
       if (p.adventure) {
@@ -237,7 +237,17 @@ export function mount(root, p, ctx) {
     if (button?.matches('[data-submit]')) submit();
     else if (button?.matches('[data-clear]')) clear();
     else if (button?.matches('[data-shuffle]')) {
-      order = shuffle(order); sfx('page', .3); renderRack('shuffle');
+      order = shuffle(order); sfx('page', .3);
+      // Preserve tile identity and focus; only their destinations change.
+      order.forEach((tile, index) => {
+        const angle = Math.PI * 2 * index / order.length - Math.PI / 2;
+        const button = rack.querySelector(`[data-letter="${tile.index}"]`);
+        button.style.setProperty('--x', `${50 + Math.cos(angle) * 35}%`);
+        button.style.setProperty('--y', `${50 + Math.sin(angle) * 35}%`);
+        button.setAttribute('aria-label', `Letter ${tile.letter}, tile ${index + 1} of ${order.length}`);
+        rack.append(button);
+      });
+      updatePath();
     }
     chooseAnswer(event);
   });

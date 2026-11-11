@@ -75,3 +75,39 @@
 .wg-evidence-clue p { margin-block: 0 var(--s3); }
 .wg-evidence .wg-choice { font-weight: 600; }
 .wg-evidence .wg-answer-feedback { min-height: 0; }
+
+/* Warm ceramic faces and a cool cast shadow keep letters distinct from the painted scene. */
+.word-garden {
+  --wheel-face: #FFFDF7; --wheel-edge: #8CB69C; --wheel-depth: #B6D6C0;
+  --wheel-settle: 320ms;
+}
+.wg-letter {
+  background: linear-gradient(165deg, #fff 0%, var(--wheel-face) 65%, #E8F4E9 100%);
+  border-color: var(--wheel-edge); color: var(--navy-strong);
+  box-shadow: inset 0 2px 0 #fff, 0 4px 0 var(--wheel-depth), 0 6px 8px rgb(36 52 106 / .1);
+  transition: left 220ms var(--ease-out), top 220ms var(--ease-out),
+    transform 100ms var(--ease-out), background-color 100ms, box-shadow 100ms;
+}
+.wg-letter[aria-pressed="true"] {
+  background: #FFE071; border-color: var(--sun-deep);
+  box-shadow: inset 0 2px 0 #FFF0AF, 0 1px 0 var(--sun-edge);
+}
+.wg-letter:active { transform: translate(-50%, calc(-50% + 3px)); }
+@media (hover: hover) and (pointer: fine) {
+  .wg-letter:not([aria-pressed="true"]):hover { background: #F0FAED; border-color: var(--leaf-deep); }
+}
+.wg-target { box-shadow: inset 0 -2px 0 var(--paper-shade); }
+.wg-target.just-found { animation: wg-word-settle var(--wheel-settle) var(--ease-out) both; }
+@keyframes wg-word-settle {
+  0% { scale: .94; box-shadow: 0 0 0 4px #FFD23F; }
+  45% { scale: 1.06; }
+  100% { scale: 1; box-shadow: inset 0 -2px 0 #B6D6C0; }
+}
+/* Reserve the feedback line so bonus and retry messages do not move the wheel. */
+[data-adventure] .wg-current { min-height: 2.6em; display: grid; place-items: center; }
+[data-adventure] .wg-board { background: #EAF4EB; box-shadow: inset 0 0 0 1px #D2E7D7; }
+.wg-links polyline { stroke: var(--leaf-deep); stroke-width: 7; opacity: .75; }
+/* A selected path must stay attached: shuffle instantly while the player is building a word. */
+.wg-rack:has([aria-pressed="true"]) .wg-letter {
+  transition: transform 100ms var(--ease-out), background-color 100ms, box-shadow 100ms;
+}
