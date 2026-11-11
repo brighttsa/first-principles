@@ -1,0 +1,60 @@
+/* Settings-only controls: preserve the game's raised green progress feel and friendly touch targets. */
+body[data-screen="settings"] .toggle input[type="checkbox"] {
+  position: relative; width: 56px; height: 36px; border: 2px solid var(--control-edge); border-radius: 999px;
+  background: var(--paper-shade); box-shadow: inset 0 1px 2px rgba(36, 52, 106, .12), 0 2px 0 var(--shadow-control);
+  transition: background-color .16s, border-color .16s, box-shadow .16s, transform .16s;
+}
+body[data-screen="settings"] .toggle input[type="checkbox"]::after {
+  width: 22px; height: 22px; border: 0; border-radius: 50%; background: #fff;
+  box-shadow: 0 2px 3px rgba(36, 52, 106, .22); opacity: 1; transform: translateX(-12px);
+  transition: transform .16s var(--ease-out);
+}
+body[data-screen="settings"] .toggle input[type="checkbox"]:checked {
+  background: var(--green); border-color: var(--green-edge);
+  box-shadow: inset 0 1px 2px rgba(36, 52, 106, .1), 0 2px 0 var(--green-edge);
+}
+body[data-screen="settings"] .toggle input[type="checkbox"]:checked::after { transform: translateX(12px); }
+body[data-screen="settings"] .toggle input[type="checkbox"]:active { transform: scale(.97); }
+body[data-screen="settings"] .toggle input[type="checkbox"]:focus-visible {
+  outline: 3px solid var(--focus-ring); outline-offset: 4px;
+}
+
+body[data-screen="settings"] .toggle-range {
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 280px); align-items: center;
+}
+body[data-screen="settings"] .toggle-range input[type="range"] {
+  width: 100%; max-width: 280px; min-width: 0; height: 44px; padding: 0; appearance: none;
+  border-radius: 999px; background: transparent;
+}
+body[data-screen="settings"] .toggle-range input[type="range"]:focus-visible {
+  outline: 2px solid var(--focus-ring); outline-offset: 1px; border-radius: 999px;
+}
+body[data-screen="settings"] .toggle-range input[type="range"]::-webkit-slider-runnable-track {
+  height: 14px; border: 2px solid var(--paper-edge); border-radius: 999px;
+  background: linear-gradient(to bottom, rgba(255,255,255,.3), rgba(255,255,255,0) 60%),
+    linear-gradient(to right, var(--green) 0, var(--green) var(--range-fill, 20%), var(--paper-shade) var(--range-fill, 20%), var(--paper-shade) 100%);
+  box-shadow: 0 2px 0 var(--shadow-control);
+}
+body[data-screen="settings"] .toggle-range input[type="range"]::-moz-range-track {
+  height: 10px; border: 2px solid var(--paper-edge); border-radius: 999px; background: var(--paper-shade);
+  box-shadow: 0 2px 0 var(--shadow-control);
+}
+body[data-screen="settings"] .toggle-range input[type="range"]::-moz-range-progress {
+  height: 10px; border-radius: 999px; background: linear-gradient(180deg, #86e879, var(--green) 65%, var(--green-edge));
+}
+body[data-screen="settings"] .toggle-range input[type="range"]::-webkit-slider-thumb {
+  appearance: none; width: 24px; height: 24px; margin-top: -7px; border: 3px solid #fff; border-radius: 50%;
+  background: var(--green); box-shadow: 0 2px 0 var(--green-edge);
+}
+body[data-screen="settings"] .toggle-range input[type="range"]::-moz-range-thumb {
+  width: 24px; height: 24px; box-sizing: border-box; border: 3px solid #fff; border-radius: 50%;
+  background: var(--green); box-shadow: 0 2px 0 var(--green-edge);
+}
+@media (max-width: 480px) {
+  body[data-screen="settings"] .toggle-range { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  body[data-screen="settings"] .toggle-range input[type="range"] { width: 100%; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-screen="settings"] .toggle input[type="checkbox"],
+  body[data-screen="settings"] .toggle input[type="checkbox"]::after { transition: none; }
+}

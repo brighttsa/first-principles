@@ -6,6 +6,12 @@ import { topbar, openSheet } from './ui-navigation-topbar-sheet-and-confetti.js'
 import { $ } from './core-utilities-and-dom-helpers.js';
 import { bibleVersionOptions } from './bible-text-provider-and-authorized-translation-states.js';
 
+function updateRangeFill(input) {
+  const min = Number(input.min), max = Number(input.max), span = max - min;
+  const percent = span > 0 ? ((Number(input.value) - min) / span) * 100 : 0;
+  input.style.setProperty('--range-fill', `${Math.max(0, Math.min(100, percent))}%`);
+}
+
 export function renderSettings(root) {
   const s = state.settings;
   const tog = (k, l) => `<label class="toggle"><span>${l}</span><input type="checkbox" data-k="${k}" ${s[k] ? 'checked' : ''}></label>`;
@@ -25,9 +31,11 @@ export function renderSettings(root) {
     <p class="setting-note">The in-game King James Version text is public domain. Other selected versions are shown as unavailable until their app access is approved. Sounds and artwork elements by Kenney (kenney.nl), CC0.</p>
     <div class="row"><button class="btn alt" id="reset">Reset all progress</button></div></div></div></div>`;
   $('[data-k=motion]', root).value = s.motion; $('[data-k=level]', root).value = state.level;
+  const textSize = $('[data-k=text]', root); updateRangeFill(textSize);
   root.onchange = root.oninput = (e) => {
     const k = e.target.dataset.k; if (!k) return;
     const v = e.target.type === 'checkbox' ? e.target.checked : e.target.type === 'range' ? +e.target.value : e.target.value;
+    if (e.target.type === 'range') updateRangeFill(e.target);
     if (k === 'level') state.level = v; else s[k] = v;
     save(); applySettings(); syncMusic(); if (e.type === 'change') sfx('toggle');
   };
